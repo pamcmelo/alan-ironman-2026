@@ -1,8 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alan — Plano de Treino Ironman 70.3 Cozumel</title>
 <style>
-:root{--sw:#E6F1FB;--sc:#0C447C;--bw:#FAEEDA;--bc:#633806;--rn:#EAF3DE;--rc:#27500A;--gm:#EEEDFE;--gc:#3C3489;--br:#FAECE7;--brc:#993C1D;--rs:#F1EFE8;--rsc:#5F5E5A}
-@media(prefers-color-scheme:dark){:root{--sw:#042C53;--sc:#85B7EB;--bw:#412402;--bc:#FAC775;--rn:#173404;--rc:#C0DD97;--gm:#26215C;--gc:#CECBF6;--br:#4A1B0C;--brc:#F5C4B3;--rs:#2C2C2A;--rsc:#D3D1C7}}
+:root{
+  --font-sans: system-ui, -apple-system, sans-serif;
+  --border-radius-lg: 12px;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f5f4;
+  --color-background-tertiary: #eeede9;
+  --color-background-success: #eaf3de;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #555550;
+  --color-text-tertiary: #888780;
+  --color-border-primary: rgba(0,0,0,0.35);
+  --color-border-secondary: rgba(0,0,0,0.22);
+  --color-border-tertiary: rgba(0,0,0,0.12);
+  --sw:#E6F1FB;--sc:#0C447C;--bw:#FAEEDA;--bc:#633806;--rn:#EAF3DE;--rc:#27500A;--gm:#EEEDFE;--gc:#3C3489;--br:#FAECE7;--brc:#993C1D;--rs:#F1EFE8;--rsc:#5F5E5A
+}
+@media(prefers-color-scheme:dark){:root{
+  --color-background-primary: #1e1e1c;
+  --color-background-secondary: #2a2a28;
+  --color-background-tertiary: #333330;
+  --color-background-success: #173404;
+  --color-text-primary: #f0ede6;
+  --color-text-secondary: #a8a59e;
+  --color-text-tertiary: #6e6c66;
+  --color-border-primary: rgba(255,255,255,0.25);
+  --color-border-secondary: rgba(255,255,255,0.18);
+  --color-border-tertiary: rgba(255,255,255,0.1);
+  --sw:#042C53;--sc:#85B7EB;--bw:#412402;--bc:#FAC775;--rn:#173404;--rc:#C0DD97;--gm:#26215C;--gc:#CECBF6;--br:#4A1B0C;--brc:#F5C4B3;--rs:#2C2C2A;--rsc:#D3D1C7
+}}
 *{box-sizing:border-box;margin:0;padding:0}
-.W{font-family:var(--font-sans,system-ui);padding-bottom:16px}
+body{background:var(--color-background-tertiary);min-height:100vh;padding:12px}
+.W{font-family:var(--font-sans,system-ui);padding-bottom:16px;max-width:640px;margin:0 auto}
 .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .tab{padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:12px;font-weight:500;font-family:inherit;transition:all .15s}
 .tab.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
@@ -36,14 +69,14 @@
 .pr{margin-top:12px;padding:10px 14px;border-radius:8px;border-left:2px solid var(--bc);background:var(--bw);font-size:12px;color:var(--bc);line-height:1.6}
 .gym-box{margin-top:10px;padding:10px 14px;border-radius:8px;border-left:2px solid var(--gc);background:var(--gm);font-size:12px;color:var(--gc);line-height:1.6}
 .gym-box strong{font-weight:500}
-
-/* Mobile fix: badges break to second line on small screens */
 @media(max-width:540px){
   .wh{flex-wrap:wrap}
   .wb{width:100%;margin-top:5px;padding-left:0}
   .cv{align-self:flex-start;margin-top:2px}
 }
 </style>
+</head>
+<body>
 <div class="W">
 <div class="tabs" id="tabs"></div>
 <div id="list"></div>
@@ -283,3 +316,5 @@ const curWeek=findCurrentWeek();
 if(curWeek!==null) ow=curWeek;
 loadDoneStates();
 </script>
+</body>
+</html>
