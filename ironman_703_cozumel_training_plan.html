@@ -1,0 +1,285 @@
+<style>
+:root{--sw:#E6F1FB;--sc:#0C447C;--bw:#FAEEDA;--bc:#633806;--rn:#EAF3DE;--rc:#27500A;--gm:#EEEDFE;--gc:#3C3489;--br:#FAECE7;--brc:#993C1D;--rs:#F1EFE8;--rsc:#5F5E5A}
+@media(prefers-color-scheme:dark){:root{--sw:#042C53;--sc:#85B7EB;--bw:#412402;--bc:#FAC775;--rn:#173404;--rc:#C0DD97;--gm:#26215C;--gc:#CECBF6;--br:#4A1B0C;--brc:#F5C4B3;--rs:#2C2C2A;--rsc:#D3D1C7}}
+*{box-sizing:border-box;margin:0;padding:0}
+.W{font-family:var(--font-sans,system-ui);padding-bottom:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:5px 12px;border-radius:20px;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-secondary);cursor:pointer;font-size:12px;font-weight:500;font-family:inherit;transition:all .15s}
+.tab.on{background:var(--color-background-secondary);color:var(--color-text-primary);border-color:var(--color-border-primary)}
+.wc{border:0.5px solid var(--color-border-tertiary);border-left-width:3px;border-radius:var(--border-radius-lg,12px);margin-bottom:8px;overflow:hidden;background:var(--color-background-primary)}
+.wh{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;user-select:none;background:var(--color-background-secondary)}
+.wh.rec{background:var(--color-background-tertiary)}
+.wh.race{background:var(--color-background-success)}
+.wn{font-size:11px;font-weight:500;padding:2px 8px;border-radius:6px;white-space:nowrap;flex-shrink:0;color:#fff}
+.wm{flex:1;min-width:0}
+.wd{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.wl{font-size:11px;color:var(--color-text-tertiary);margin-top:1px}
+.wb{display:flex;gap:4px;flex-wrap:wrap;flex-shrink:0}
+.wbg{font-size:11px;font-weight:500;padding:2px 7px;border-radius:10px;white-space:nowrap}
+.cv{color:var(--color-text-tertiary);font-size:10px;flex-shrink:0;transition:transform .2s}
+.wf{padding:7px 14px;font-size:12px;color:var(--color-text-secondary);border-top:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary)}
+.dy{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.dr{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;border-radius:8px;transition:opacity .2s}
+.dr.is-today{outline:1.5px solid #185FA5;outline-offset:-1px}
+.dr.is-done{opacity:0.45}
+.dl{font-size:11px;font-weight:500;min-width:34px;color:var(--color-text-secondary);padding-top:2px;flex-shrink:0}
+.di{font-size:13px;min-width:18px;line-height:1.2;flex-shrink:0}
+.dc{font-size:12px;color:var(--color-text-primary);line-height:1.5;flex:1}
+.today-tag{font-size:9px;font-weight:600;background:#185FA5;color:#fff;padding:1px 5px;border-radius:4px;white-space:nowrap;align-self:center;flex-shrink:0}
+.done-btn{margin-left:4px;flex-shrink:0;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--color-border-secondary);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s;align-self:center;padding:0;font-family:inherit}
+.done-btn:hover{border-color:var(--color-text-secondary)}
+.done-btn.is-done{background:#27500A;border-color:#27500A;color:#fff}
+@media(prefers-color-scheme:dark){.done-btn.is-done{background:#C0DD97;border-color:#C0DD97;color:#173404}}
+.lg{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.li{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--color-text-secondary)}
+.ld{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+.pr{margin-top:12px;padding:10px 14px;border-radius:8px;border-left:2px solid var(--bc);background:var(--bw);font-size:12px;color:var(--bc);line-height:1.6}
+.gym-box{margin-top:10px;padding:10px 14px;border-radius:8px;border-left:2px solid var(--gc);background:var(--gm);font-size:12px;color:var(--gc);line-height:1.6}
+.gym-box strong{font-weight:500}
+
+/* Mobile fix: badges break to second line on small screens */
+@media(max-width:540px){
+  .wh{flex-wrap:wrap}
+  .wb{width:100%;margin-top:5px;padding-left:0}
+  .cv{align-self:flex-start;margin-top:2px}
+}
+</style>
+<div class="W">
+<div class="tabs" id="tabs"></div>
+<div id="list"></div>
+<div class="lg">
+  <div class="li"><div class="ld" style="background:var(--sw)"></div>Natação</div>
+  <div class="li"><div class="ld" style="background:var(--bw)"></div>Bike</div>
+  <div class="li"><div class="ld" style="background:var(--rn)"></div>Corrida</div>
+  <div class="li"><div class="ld" style="background:var(--gm)"></div>Musculação</div>
+  <div class="li"><div class="ld" style="background:var(--br)"></div>Brick</div>
+  <div class="li"><div class="ld" style="background:var(--rs)"></div>Descanso</div>
+</div>
+<div class="pr">⚠️ <strong>Protocolo joelho — todo dia sem exceção:</strong> Rolo de espuma na banda IT (60s por lado) · Abdução lateral com elástico 3×15 · Agachamento unilateral assistido 3×8</div>
+<div class="gym-box"><strong>Musculação fases 1–2 (3×/semana):</strong> Seg → Glúteo médio, core, funcional (abdução, dead bug, prancha) · Qua → Deadlift, hip thrust, remada, lat pulldown · Sex → Step-up, agachamento búlgaro, shoulder press, core rotacional<br><strong>Fases 3–4 (2×/semana):</strong> Hip thrust, abdução com elástico, agachamento unilateral, core · Fases 5+ → suspensa</div>
+</div>
+<script>
+const PH=[
+  {id:1,n:"Fase 1",s:"Base terrestre",c:"#0F6E56",wks:[1,2,3,4]},
+  {id:2,n:"Fase 2",s:"Bacalar",c:"#185FA5",wks:[5,6,7,8,9]},
+  {id:3,n:"Fase 3",s:"Natação + build",c:"#534AB7",wks:[10,11,12,13]},
+  {id:4,n:"Fase 4",s:"Volume + bricks",c:"#BA7517",wks:[14,15,16,17]},
+  {id:5,n:"Fase 5",s:"Pico de carga",c:"#A32D2D",wks:[18,19,20,21]},
+  {id:6,n:"Fase 6",s:"Taper",c:"#5F5E5A",wks:[22,23]},
+  {id:7,n:"Fase 7",s:"Prova!",c:"#3B6D11",wks:[24,25]},
+];
+const TS={
+  swim:{bg:"var(--sw)",ic:"🏊"},bike:{bg:"var(--bw)",ic:"🚴"},run:{bg:"var(--rn)",ic:"🏃"},
+  gym:{bg:"var(--gm)",ic:"💪"},brick:{bg:"var(--br)",ic:"🔥"},rest:{bg:"var(--rs)",ic:"😴"},
+  "run+gym":{bg:"var(--rn)",ic:"🏃+💪"},"swim+gym":{bg:"var(--sw)",ic:"🏊+💪"},
+};
+
+const DAY_OFFSET={"Seg":0,"Ter":1,"Qua":2,"Qui":3,"Sex":4,"Sáb":5,"Dom":6};
+
+const W=[
+  {w:1,ph:1,startDate:"2026-03-30",d:"30 Mar – 5 Abr",loc:"Cidade atual",foc:"Entrada suave. Ativar glúteo médio. Protocolo joelho todo dia.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 6km fácil (6:10–6:30/km) + Musculação: glúteo médio, core, funcional"},{dy:"Ter",t:"bike",c:"Bike MTB 40km — ritmo aeróbico confortável"},{dy:"Qua",t:"run+gym",c:"Corrida 8km moderado (5:50–6:10/km) + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo: caminhada, rolo de espuma, mobilidade"},{dy:"Sex",t:"run+gym",c:"Corrida 6km fácil + Musculação"},{dy:"Sáb",t:"bike",c:"Bike MTB 60km longo — ritmo controlado"},{dy:"Dom",t:"run",c:"Corrida 10km longo fácil (6:10–6:30/km)"}],
+   tot:{sw:"—",bk:"100km",rn:"20km",gm:"3×"}},
+  {w:2,ph:1,startDate:"2026-04-06",d:"6 – 12 Abr",loc:"Cidade atual",foc:"Aumentar volume gradualmente. Manter ritmo fácil nos treinos longos.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 7km fácil + Musculação"},{dy:"Ter",t:"bike",c:"Bike 45km — 2×10min em ritmo moderado-forte"},{dy:"Qua",t:"run+gym",c:"Corrida 9km moderado + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo: rolo de espuma, alongamento 20min"},{dy:"Sex",t:"run+gym",c:"Corrida 7km fácil + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 65km longo — pace constante e aeróbico"},{dy:"Dom",t:"run",c:"Corrida 12km longo (6:10–6:30/km)"}],
+   tot:{sw:"—",bk:"110km",rn:"22km",gm:"3×"}},
+  {w:3,ph:1,startDate:"2026-04-13",d:"13 – 19 Abr",loc:"Cidade atual",foc:"Semana mais exigente da fase 1. Bike 70km. Corrida 15km.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 8km + Musculação"},{dy:"Ter",t:"bike",c:"Bike 50km — 3×8min em ritmo forte intercalados"},{dy:"Qua",t:"run+gym",c:"Corrida 10km moderado + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo completo"},{dy:"Sex",t:"run+gym",c:"Corrida 8km + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 70km longo"},{dy:"Dom",t:"run",c:"Corrida 15km longo fácil"}],
+   tot:{sw:"—",bk:"120km",rn:"26km",gm:"3×"}},
+  {w:4,ph:1,startDate:"2026-04-20",d:"20 – 26 Abr",loc:"Bacalar (chegando)",foc:"⚡ RECUPERAÇÃO — Volume reduzido. Corpo assimila o treino.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 6km fácil + Musculação leve"},{dy:"Ter",t:"bike",c:"Bike 35km fácil, sem forçar"},{dy:"Qua",t:"run+gym",c:"Corrida 8km + Musculação leve"},{dy:"Qui",t:"rest",c:"Descanso completo"},{dy:"Sex",t:"run",c:"Corrida 6km fácil"},{dy:"Sáb",t:"bike",c:"Bike 50km fácil"},{dy:"Dom",t:"run",c:"Corrida 10km fácil"}],
+   tot:{sw:"—",bk:"85km",rn:"20km",gm:"2×"}},
+  {w:5,ph:2,startDate:"2026-04-27",d:"27 Abr – 3 Mai",loc:"Bacalar",foc:"Reiniciar com energia da recuperação. Aproveitar a lagoa para contato com a água.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 8km + Musculação"},{dy:"Ter",t:"bike",c:"Bike 50km moderado"},{dy:"Qua",t:"run+gym",c:"Corrida 10km moderado + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo"},{dy:"Sex",t:"run+gym",c:"Corrida 8km + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 70km longo"},{dy:"Dom",t:"run",c:"Corrida 15km longo"}],
+   tot:{sw:"—",bk:"120km",rn:"26km",gm:"3×"}},
+  {w:6,ph:2,startDate:"2026-05-04",d:"4 – 10 Mai",loc:"Bacalar",foc:"Aumentar volume de corrida. Bike com intervalos curtos.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 9km + Musculação"},{dy:"Ter",t:"bike",c:"Bike 55km — 3×10min forte"},{dy:"Qua",t:"run+gym",c:"Corrida 11km moderado + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo"},{dy:"Sex",t:"run+gym",c:"Corrida 9km + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 75km longo"},{dy:"Dom",t:"run",c:"Corrida 17km longo fácil"}],
+   tot:{sw:"—",bk:"130km",rn:"29km",gm:"3×"}},
+  {w:7,ph:2,startDate:"2026-05-11",d:"11 – 17 Mai",loc:"Bacalar",foc:"Maior carga da fase 2. Bike 80km. Corrida 18km.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 10km + Musculação"},{dy:"Ter",t:"bike",c:"Bike 55km — intervalos de resistência"},{dy:"Qua",t:"run+gym",c:"Corrida 12km + Musculação"},{dy:"Qui",t:"rest",c:"Descanso completo"},{dy:"Sex",t:"run+gym",c:"Corrida 10km + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 80km longo — simular esforço de prova"},{dy:"Dom",t:"run",c:"Corrida 18km longo (6:10–6:30/km)"}],
+   tot:{sw:"—",bk:"135km",rn:"32km",gm:"3×"}},
+  {w:8,ph:2,startDate:"2026-05-18",d:"18 – 24 Mai",loc:"Bacalar → Playa del Carmen",foc:"Manter carga. Transição para Playa del Carmen.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 10km + Musculação"},{dy:"Ter",t:"bike",c:"Bike 60km"},{dy:"Qua",t:"run+gym",c:"Corrida 12km + Musculação"},{dy:"Qui",t:"rest",c:"Descanso ativo"},{dy:"Sex",t:"run+gym",c:"Corrida 10km + Musculação"},{dy:"Sáb",t:"bike",c:"Bike 80km longo"},{dy:"Dom",t:"run",c:"Corrida 18km longo"}],
+   tot:{sw:"—",bk:"140km",rn:"32km",gm:"3×"}},
+  {w:9,ph:2,startDate:"2026-05-25",d:"25 – 31 Mai",loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para entrada na natação em junho.",
+   days:[{dy:"Seg",t:"run+gym",c:"Corrida 7km fácil + Musculação leve"},{dy:"Ter",t:"bike",c:"Bike 40km fácil"},{dy:"Qua",t:"run+gym",c:"Corrida 9km + Musculação leve"},{dy:"Qui",t:"rest",c:"Descanso completo"},{dy:"Sex",t:"run",c:"Corrida 7km fácil"},{dy:"Sáb",t:"bike",c:"Bike 55km fácil"},{dy:"Dom",t:"run",c:"Corrida 12km fácil"}],
+   tot:{sw:"—",bk:"95km",rn:"23km",gm:"2×"}},
+  {w:10,ph:3,startDate:"2026-06-01",d:"1 – 7 Jun",loc:"Playa del Carmen",foc:"🏊 NATAÇÃO COMEÇA! Foco total em técnica. Entrar na água 3× esta semana.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 600m — técnica de crawl, respiração bilateral + Musculação"},{dy:"Ter",t:"run",c:"Corrida 10km moderado"},{dy:"Qua",t:"swim+gym",c:"Natação 700m — posição do corpo, sighting no mar + Musculação"},{dy:"Qui",t:"bike",c:"Bike 60km"},{dy:"Sex",t:"swim",c:"Natação 700m — distância contínua + orientação no mar"},{dy:"Sáb",t:"bike",c:"Bike 80km longo"},{dy:"Dom",t:"run",c:"Corrida 16km longo fácil"}],
+   tot:{sw:"2.000m",bk:"140km",rn:"26km",gm:"2×"}},
+  {w:11,ph:3,startDate:"2026-06-08",d:"8 – 14 Jun",loc:"Playa del Carmen",foc:"Chegar em 1.000m contínuos. Manter volume de bike e corrida.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 800m — posição da cabeça, braçada + Musculação"},{dy:"Ter",t:"run",c:"Corrida 11km moderado"},{dy:"Qua",t:"swim+gym",c:"Natação 1.000m — nadar em linha reta, praticar sighting + Musculação"},{dy:"Qui",t:"bike",c:"Bike 60km — 3×8min forte"},{dy:"Sex",t:"swim",c:"Natação 1.000m — ritmo contínuo sem parar"},{dy:"Sáb",t:"bike",c:"Bike 80km longo"},{dy:"Dom",t:"run",c:"Corrida 18km longo"}],
+   tot:{sw:"2.800m",bk:"140km",rn:"29km",gm:"2×"}},
+  {w:12,ph:3,startDate:"2026-06-15",d:"15 – 21 Jun",loc:"Playa del Carmen",foc:"Chegar em 1.200m contínuos. Bike 85km. Corrida 19km.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.000m + progressão de ritmo nos últimos 300m + Musculação"},{dy:"Ter",t:"run",c:"Corrida 11km"},{dy:"Qua",t:"swim+gym",c:"Natação 1.200m — ritmo constante + Musculação"},{dy:"Qui",t:"bike",c:"Bike 65km"},{dy:"Sex",t:"swim",c:"Natação 1.200m contínuos — sem parar"},{dy:"Sáb",t:"bike",c:"Bike 85km longo"},{dy:"Dom",t:"run",c:"Corrida 19km longo fácil"}],
+   tot:{sw:"3.400m",bk:"150km",rn:"30km",gm:"2×"}},
+  {w:13,ph:3,startDate:"2026-06-22",d:"22 – 28 Jun",loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Consolidar técnica de nado.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 800m fácil + exercícios de técnica + Musculação leve"},{dy:"Ter",t:"run",c:"Corrida 8km fácil"},{dy:"Qua",t:"swim",c:"Natação 800m — drills de braçada e posição"},{dy:"Qui",t:"bike",c:"Bike 45km fácil"},{dy:"Sex",t:"swim",c:"Natação 800m contínuos"},{dy:"Sáb",t:"bike",c:"Bike 60km moderado"},{dy:"Dom",t:"run",c:"Corrida 14km fácil"}],
+   tot:{sw:"2.400m",bk:"105km",rn:"22km",gm:"1×"}},
+  {w:14,ph:4,startDate:"2026-06-29",d:"29 Jun – 5 Jul",loc:"Playa del Carmen",foc:"🔥 BRICKS INICIAM! Natação 4×/semana. Brick sexta: Bike 65km + Corrida 8km.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.200m + Musculação"},{dy:"Ter",t:"run",c:"Corrida 11km moderado"},{dy:"Qua",t:"swim+gym",c:"Natação 1.400m contínuos + Musculação"},{dy:"Qui",t:"swim",c:"Natação 1.200m — ritmo de prova"},{dy:"Sex",t:"brick",c:"🔥 BRICK: Bike 65km → Corrida 8km (transição real, sem parar)"},{dy:"Sáb",t:"bike",c:"Bike 85km longo"},{dy:"Dom",t:"run",c:"Corrida 19km longo"}],
+   tot:{sw:"3.800m",bk:"150km",rn:"38km",gm:"2×"}},
+  {w:15,ph:4,startDate:"2026-07-06",d:"6 – 12 Jul",loc:"Playa del Carmen",foc:"Brick maior. Natação chegando em 1.600m. Corrida 20km.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.400m + Musculação"},{dy:"Ter",t:"run",c:"Corrida 12km moderado"},{dy:"Qua",t:"swim+gym",c:"Natação 1.600m contínuos + Musculação"},{dy:"Qui",t:"swim",c:"Natação 1.400m — ritmo e sighting"},{dy:"Sex",t:"brick",c:"🔥 BRICK: Bike 70km → Corrida 10km"},{dy:"Sáb",t:"bike",c:"Bike 87km longo"},{dy:"Dom",t:"run",c:"Corrida 20km longo"}],
+   tot:{sw:"4.400m",bk:"157km",rn:"42km",gm:"2×"}},
+  {w:16,ph:4,startDate:"2026-07-13",d:"13 – 19 Jul",loc:"Playa del Carmen",foc:"1.900m na natação pela 1ª vez! Meia maratona completa no domingo.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.500m + Musculação"},{dy:"Ter",t:"run",c:"Corrida 12km"},{dy:"Qua",t:"swim+gym",c:"Natação 1.900m 🎯 — distância real da prova completa! + Musculação"},{dy:"Qui",t:"swim",c:"Natação 1.500m — ritmo de prova"},{dy:"Sex",t:"brick",c:"🔥 BRICK: Bike 75km → Corrida 12km"},{dy:"Sáb",t:"bike",c:"Bike 88km longo"},{dy:"Dom",t:"run",c:"Corrida 21km — meia maratona completa!"}],
+   tot:{sw:"4.900m",bk:"163km",rn:"45km",gm:"2×"}},
+  {w:17,ph:4,startDate:"2026-07-20",d:"20 – 26 Jul",loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Manter frequência.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.000m fácil + Musculação leve"},{dy:"Ter",t:"run",c:"Corrida 8km fácil"},{dy:"Qua",t:"swim",c:"Natação 1.200m fácil"},{dy:"Qui",t:"bike",c:"Bike 50km fácil"},{dy:"Sex",t:"swim",c:"Natação 1.000m"},{dy:"Sáb",t:"bike",c:"Bike 60km"},{dy:"Dom",t:"run",c:"Corrida 14km fácil"}],
+   tot:{sw:"3.200m",bk:"110km",rn:"22km",gm:"1×"}},
+  {w:18,ph:5,startDate:"2026-07-27",d:"27 Jul – 2 Ago",loc:"Playa del Carmen",foc:"PICO INICIA. Natação 2.000m+. Brick longo. Musculação entra em manutenção mínima.",
+   days:[{dy:"Seg",t:"swim+gym",c:"Natação 1.600m + Musculação (última semana de musculação intensa)"},{dy:"Ter",t:"run",c:"Corrida 13km moderado"},{dy:"Qua",t:"swim",c:"Natação 2.000m — acima da distância da prova"},{dy:"Qui",t:"swim",c:"Natação 1.600m ritmo de prova"},{dy:"Sex",t:"brick",c:"🔥 BRICK LONGO: Bike 80km → Corrida 14km"},{dy:"Sáb",t:"bike",c:"Bike 90km longo"},{dy:"Dom",t:"run",c:"Corrida 21km fácil"}],
+   tot:{sw:"5.200m",bk:"170km",rn:"48km",gm:"1×"}},
+  {w:19,ph:5,startDate:"2026-08-03",d:"3 – 9 Ago",loc:"Playa del Carmen",foc:"Pico máximo de volume. Brick 80km + 16km. Musculação suspensa.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.700m"},{dy:"Ter",t:"run",c:"Corrida 13km moderado"},{dy:"Qua",t:"swim",c:"Natação 2.000m — ritmo de prova"},{dy:"Qui",t:"swim",c:"Natação 1.700m"},{dy:"Sex",t:"brick",c:"🔥 BRICK PICO: Bike 80km → Corrida 16km"},{dy:"Sáb",t:"bike",c:"Bike 90km longo"},{dy:"Dom",t:"run",c:"Corrida 21km"}],
+   tot:{sw:"5.400m",bk:"170km",rn:"50km",gm:"—"}},
+  {w:20,ph:5,startDate:"2026-08-10",d:"10 – 16 Ago",loc:"Playa del Carmen",foc:"Simulado completo: Natação + Bike + Corrida. Sábado: descanso total.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.700m"},{dy:"Ter",t:"run",c:"Corrida 12km moderado"},{dy:"Qua",t:"swim",c:"Natação 2.000m"},{dy:"Qui",t:"swim",c:"Natação 1.600m"},{dy:"Sex",t:"brick",c:"🔥 SIMULADO COMPLETO: Natação 1.900m → Bike 90km → Corrida 10km"},{dy:"Sáb",t:"rest",c:"Descanso completo — recuperar do simulado"},{dy:"Dom",t:"run",c:"Corrida 16km fácil"}],
+   tot:{sw:"7.200m",bk:"90km",rn:"38km",gm:"—"}},
+  {w:21,ph:5,startDate:"2026-08-17",d:"17 – 23 Ago",loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para o taper final.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.200m fácil"},{dy:"Ter",t:"run",c:"Corrida 8km fácil"},{dy:"Qua",t:"swim",c:"Natação 1.400m"},{dy:"Qui",t:"bike",c:"Bike 50km fácil"},{dy:"Sex",t:"swim",c:"Natação 1.200m"},{dy:"Sáb",t:"bike",c:"Bike 60km"},{dy:"Dom",t:"run",c:"Corrida 14km fácil"}],
+   tot:{sw:"3.800m",bk:"110km",rn:"22km",gm:"—"}},
+  {w:22,ph:6,startDate:"2026-08-24",d:"24 – 30 Ago",loc:"Playa del Carmen",foc:"TAPER — Volume cai 30%. Manter frequência e alguma intensidade.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.500m ritmo de prova"},{dy:"Ter",t:"run",c:"Corrida 10km — incluir 2km em pace de prova (5:30–5:50/km)"},{dy:"Qua",t:"swim",c:"Natação 1.500m"},{dy:"Qui",t:"bike",c:"Bike 60km moderado"},{dy:"Sex",t:"swim",c:"Natação 1.200m fácil"},{dy:"Sáb",t:"bike",c:"Bike 70km"},{dy:"Dom",t:"run",c:"Corrida 16km fácil"}],
+   tot:{sw:"4.200m",bk:"130km",rn:"26km",gm:"—"}},
+  {w:23,ph:6,startDate:"2026-08-31",d:"31 Ago – 6 Set",loc:"Playa → Cozumel",foc:"Taper ativo. Chegada em Cozumel. Reconhecer percursos de nado e bike.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.400m fácil"},{dy:"Ter",t:"run",c:"Corrida 9km fácil"},{dy:"Qua",t:"swim",c:"Natação 1.400m — testar percurso de nado"},{dy:"Qui",t:"bike",c:"Bike 50km — reconhecer parte do percurso"},{dy:"Sex",t:"swim",c:"Natação 1.200m fácil"},{dy:"Sáb",t:"bike",c:"Bike 55km — percurso de bike em Cozumel"},{dy:"Dom",t:"run",c:"Corrida 12km fácil — percurso de corrida"}],
+   tot:{sw:"4.000m",bk:"105km",rn:"21km",gm:"—"}},
+  {w:24,ph:7,startDate:"2026-09-07",d:"7 – 13 Set",loc:"Cozumel",foc:"TAPER FINAL. Treinos leves. Equipamento revisado. Testar nutrição de prova.",
+   days:[{dy:"Seg",t:"swim",c:"Natação 1.200m muito fácil no percurso da prova"},{dy:"Ter",t:"run",c:"Corrida 7km fácil (6:00–6:30/km)"},{dy:"Qua",t:"swim",c:"Natação 1.200m — familiarizar com correntes e visibilidade"},{dy:"Qui",t:"bike",c:"Bike 40km no percurso — reconhecer curvas, vento e asfalto"},{dy:"Sex",t:"swim",c:"Natação 800m leve"},{dy:"Sáb",t:"run",c:"Corrida 8km fácil + mini brick: 30min bike + 20min corrida"},{dy:"Dom",t:"rest",c:"Descanso ativo — caminhada, visualização da prova"}],
+   tot:{sw:"3.200m",bk:"40km+",rn:"15km",gm:"—"}},
+  {w:25,ph:7,startDate:"2026-09-14",d:"14 – 20 Set 🏁",loc:"Cozumel — PROVA",foc:"SEMANA DA PROVA — Descanso máximo. Rotina, sono, nutrição. NADA NOVO!",
+   days:[{dy:"Seg",t:"swim",c:"Natação 800m muito fácil — só para sentir a água"},{dy:"Ter",t:"run",c:"Corrida 20min fácil + mobilidade articular"},{dy:"Qua",t:"swim",c:"Natação 600m — manter ritmo, sem esforço"},{dy:"Qui",t:"bike",c:"Bike 25min fácil — checar equipamento e calibragem dos pneus"},{dy:"Sex",t:"rest",c:"Check-in atleta, registro, rack da bike. Descanso completo."},{dy:"Sáb",t:"rest",c:"Briefing obrigatório, rack da bike, visualização da prova. Dormir cedo (20h)."},{dy:"Dom",t:"brick",c:"🏁 IRONMAN 70.3 COZUMEL — DIA DA PROVA! Boa sorte, soldado! 💪"}],
+   tot:{sw:"—",bk:"—",rn:"—",gm:"—"}},
+];
+
+let ap=0, ow=null, doneStates={};
+
+const gp=id=>PH.find(p=>p.id===id);
+
+function getToday(){const t=new Date();t.setHours(0,0,0,0);return t;}
+
+function getDayDate(wk, dayShort){
+  const start=new Date(wk.startDate+"T00:00:00");
+  const offset=DAY_OFFSET[dayShort]??0;
+  const d=new Date(start);
+  d.setDate(d.getDate()+offset);
+  return d;
+}
+
+function findCurrentWeek(){
+  const today=getToday();
+  for(const wk of W){
+    const start=new Date(wk.startDate+"T00:00:00");
+    const end=new Date(start);
+    end.setDate(end.getDate()+6);
+    if(today>=start&&today<=end) return wk.w;
+  }
+  return null;
+}
+
+async function loadDoneStates(){
+  try{
+    const result=await window.storage.list('done:');
+    if(result&&result.keys){
+      for(const key of result.keys){
+        try{
+          const val=await window.storage.get(key);
+          if(val&&val.value==='1'){
+            doneStates[key.replace('done:','')]=true;
+          }
+        }catch(e){}
+      }
+    }
+  }catch(e){}
+  rl();
+}
+
+async function toggleDone(wNum, day, evt){
+  evt.stopPropagation();
+  const k=`w${wNum}:${day}`;
+  if(doneStates[k]){
+    delete doneStates[k];
+    try{await window.storage.delete('done:'+k);}catch(e){}
+  }else{
+    doneStates[k]=true;
+    try{await window.storage.set('done:'+k,'1');}catch(e){}
+  }
+  rl();
+}
+
+function rt(){
+  let h=`<button class="tab on" data-p="0" onclick="sp(0)">Todas as fases</button>`;
+  PH.forEach(p=>{h+=`<button class="tab" data-p="${p.id}" onclick="sp(${p.id})">${p.n}</button>`;});
+  document.getElementById("tabs").innerHTML=h;
+}
+
+function sp(id){
+  ap=id;
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",+(b.dataset.p)===id));
+  rl();
+}
+
+function tw(w){ow=ow===w?null:w;rl();}
+
+function rl(){
+  const today=getToday();
+  const fd=ap===0?W:W.filter(x=>x.ph===ap);
+
+  document.getElementById("list").innerHTML=fd.map(wk=>{
+    const ph=gp(wk.ph), io=ow===wk.w;
+    const ir=wk.foc.includes("RECUPERAÇÃO");
+    const irc=wk.w===25;
+
+    let b="";
+    if(wk.tot.sw!=="—") b+=`<span class="wbg" style="background:var(--sw);color:var(--sc)">🏊 ${wk.tot.sw}</span>`;
+    if(wk.tot.bk!=="—") b+=`<span class="wbg" style="background:var(--bw);color:var(--bc)">🚴 ${wk.tot.bk}</span>`;
+    if(wk.tot.rn!=="—") b+=`<span class="wbg" style="background:var(--rn);color:var(--rc)">🏃 ${wk.tot.rn}</span>`;
+    if(wk.tot.gm!=="—") b+=`<span class="wbg" style="background:var(--gm);color:var(--gc)">💪 ${wk.tot.gm}</span>`;
+
+    const hcls=irc?"race":ir?"rec":"";
+
+    let ds="";
+    if(io){
+      ds=wk.days.map(d=>{
+        const ts=TS[d.t]||TS.rest;
+        const dayDate=getDayDate(wk,d.dy);
+        const isToday=dayDate.getTime()===today.getTime();
+        const isDone=!!doneStates[`w${wk.w}:${d.dy}`];
+        const doneCls=isDone?" is-done":"";
+        const todayCls=isToday?" is-today":"";
+        const todayTag=isToday?`<span class="today-tag">Hoje</span>`:"";
+        const doneIcon=isDone?"✓":"";
+        const doneBtnCls=isDone?" is-done":"";
+        return `<div class="dr${todayCls}${doneCls}" style="background:${ts.bg}">
+          <span class="dl">${d.dy}</span>
+          <span class="di">${ts.ic}</span>
+          <span class="dc">${d.c}</span>
+          ${todayTag}
+          <button class="done-btn${doneBtnCls}" onclick="toggleDone(${wk.w},'${d.dy}',event)" title="${isDone?'Desmarcar':'Marcar como feito'}">${doneIcon}</button>
+        </div>`;
+      }).join("");
+    }
+
+    return `<div class="wc" style="border-left-color:${ph.c}">
+      <div class="wh ${hcls}" onclick="tw(${wk.w})">
+        <span class="wn" style="background:${ph.c}">S${wk.w}</span>
+        <div class="wm">
+          <div class="wd">${irc?"🏁 ":""}${wk.d}</div>
+          <div class="wl">📍 ${wk.loc} · ${ph.n}: ${ph.s}</div>
+        </div>
+        <div class="wb">${b}</div>
+        <span class="cv" style="transform:rotate(${io?180:0}deg)">▼</span>
+      </div>
+      <div class="wf">🎯 ${wk.foc}</div>
+      ${io?`<div class="dy">${ds}</div>`:""}
+    </div>`;
+  }).join("");
+}
+
+rt();
+const curWeek=findCurrentWeek();
+if(curWeek!==null) ow=curWeek;
+loadDoneStates();
+</script>
