@@ -81,15 +81,12 @@ loadFromStorage();
 
 async function loadDone() {
   setSyncStatus('Sincronizando…');
-  console.log('[IronMan] loadFromStorage result:', [...doneSet]);
   try {
     const res = await fetch(APPS_SCRIPT_URL);
     const data = await res.json();
-    console.log('[IronMan] Sheets response:', data);
     if (data.status === 'ok') {
       data.done.forEach(k => doneSet.add(k));
       saveToStorage();
-      console.log('[IronMan] doneSet after merge:', [...doneSet]);
       setSyncStatus('Sincronizado ✓');
       renderHeader();
       renderTodayHero();
@@ -98,7 +95,6 @@ async function loadDone() {
       setSyncStatus('Sheets indisponível — dados locais mantidos');
     }
   } catch(e) {
-    console.error('[IronMan] loadDone error:', e);
     setSyncStatus('Offline — usando dados locais');
   }
   setTimeout(() => setSyncStatus(''), 3000);
