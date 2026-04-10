@@ -130,7 +130,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .tpb-labels { display: flex; justify-content: space-between; align-items: center; }
 .tpb-left { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
 .tpb-right { font-size: 11px; color: var(--color-text-tertiary); }
-
 .today-hero { border: 1.5px solid #185FA5; border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.25rem; background: var(--color-background-primary); }
 .today-hero-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #E6F1FB; border-bottom: 0.5px solid rgba(24,95,165,0.2); }
 @media (prefers-color-scheme: dark) { .today-hero-header { background: #042C53; } }
@@ -161,14 +160,11 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .nut-row.intra .nut-items { color: var(--sc); }
 .nut-row.post .nut-items { color: var(--bc); }
 .nut-rest-note { font-size: 12px; color: var(--color-text-secondary); padding: 10px 14px; line-height: 1.6; }
-
 .knee-reminder { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--bw); border-left: 2px solid var(--bc); font-size: 11px; color: var(--bc); line-height: 1.6; margin-bottom: 1.25rem; }
 .knee-reminder b { font-weight: 500; }
-
 .phase-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1rem; }
 .phase-pill { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; font-family: inherit; transition: all 0.15s; }
 .phase-pill.active { color: white; border-color: transparent; }
-
 .week-item { border: 0.5px solid var(--color-border-tertiary); border-left-width: 3px; border-radius: var(--border-radius-lg); margin-bottom: 8px; overflow: hidden; background: var(--color-background-primary); }
 .week-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; user-select: none; background: var(--color-background-secondary); }
 .week-header.is-rec { background: var(--color-background-tertiary); }
@@ -179,26 +175,16 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .week-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
 .week-sub { font-size: 11px; color: var(--color-text-tertiary); margin-top: 1px; }
 .week-totals { display: flex; gap: 4px; flex-wrap: wrap; flex-shrink: 0; }
-.week-total-pill { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 8px; white-space: nowrap; }
 .week-chevron { font-size: 10px; color: var(--color-text-tertiary); flex-shrink: 0; transition: transform 0.2s; }
 .week-foc { padding: 7px 14px; font-size: 11px; color: var(--color-text-secondary); border-top: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); line-height: 1.5; }
 .week-days { padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; }
-
-/* Day row in week */
 .train-day { border-radius: 8px; overflow: hidden; }
 .train-day-header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; transition: background 0.12s; border-radius: 8px; }
-
-/* DONE: subtle green tint + opacity */
 .train-day.done .train-day-header { opacity: 0.55; background: rgba(99,153,34,0.06); }
-
-/* TODAY: strong blue highlight */
 .train-day.is-today .train-day-header { background: rgba(24,95,165,0.1); border: 1.5px solid #185FA5; border-radius: 8px; }
 @media (prefers-color-scheme: dark) { .train-day.is-today .train-day-header { background: rgba(24,95,165,0.18); border-color: #378ADD; } }
-
-/* OVERDUE: orange warning */
 .train-day.overdue .train-day-header { background: rgba(239,159,39,0.1); border: 1px solid #EF9F27; border-radius: 8px; }
 @media (prefers-color-scheme: dark) { .train-day.overdue .train-day-header { background: rgba(239,159,39,0.12); border-color: #854F0B; } }
-
 .train-day-date { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); min-width: 38px; flex-shrink: 0; line-height: 1.3; }
 .train-day.is-today .train-day-date { color: #185FA5; font-weight: 700; }
 .train-day.overdue .train-day-date { color: #854F0B; }
@@ -211,8 +197,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .day-nut-toggle { font-size: 10px; color: var(--color-text-tertiary); transition: transform 0.2s; }
 .train-day-nut { padding: 4px 10px 10px 10px; display: flex; flex-direction: column; gap: 6px; }
 .train-day-nut.hidden { display: none; }
-
-/* Done / overdue buttons */
 .done-btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; transition: opacity 0.15s; }
 .done-btn.mark { background: #EAF3DE; color: #27500A; border: 1px solid #639922; }
 .done-btn.marked { background: #639922; color: white; }
@@ -222,10 +206,7 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
   .done-btn.marked { background: #27500A; color: #C0DD97; }
   .done-btn.overdue-mark { background: #412402; color: #FAC775; border-color: #854F0B; }
 }
-
-/* Sync indicator */
 .sync-status { font-size: 10px; color: var(--color-text-tertiary); text-align: right; margin-bottom: 8px; min-height: 14px; }
-
 .ts { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 8px; }
 </style>
 </head>
@@ -324,7 +305,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
   <!-- ===== TREINAMENTO TAB ===== -->
   <div id="tab-treino" class="tab-content">
     <div class="sync-status" id="sync-status">Carregando progresso…</div>
-
     <div class="train-progress-bar">
       <div class="tpb-track"><div class="tpb-fill" id="tpb-fill" style="width:0%"></div></div>
       <div class="tpb-labels">
@@ -332,14 +312,11 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
         <span class="tpb-right" id="tpb-days">—</span>
       </div>
     </div>
-
     <div class="today-hero" id="today-hero"></div>
-
     <div class="knee-reminder">
       <span style="font-size:16px;flex-shrink:0">🦵</span>
       <div><b>Protocolo joelho — todo dia sem exceção:</b> Rolo de espuma na banda IT 60s cada lado · Abdução lateral com elástico 3×15 · Agachamento unilateral assistido 3×8</div>
     </div>
-
     <div class="section-label">Filtrar por fase</div>
     <div class="phase-pills" id="phase-pills"></div>
     <div id="train-week-list"></div>
@@ -405,15 +382,12 @@ function switchTab(t) {
 sel(0);
 
 /* ===== TRAINING ===== */
-
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwQ_YulNwOsIyA5GxSYyjnO9qaFEj2ndCOgpNRZyuuKX53Qh0fTjJ_zAA1DHZDHWEOTw/exec';
-
 const TODAY_DATE = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
 const PLAN_START = new Date(2026, 2, 30);
 const RACE_DATE  = new Date(2026, 8, 20);
 const MONTHS_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DAY_NAMES_PT = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
-
 let doneSet = new Set();
 
 async function loadDone() {
@@ -425,10 +399,10 @@ async function loadDone() {
       doneSet = new Set(data.done);
       setSyncStatus('Sincronizado ✓');
     } else {
-      setSyncStatus('Erro ao carregar — dados locais');
+      setSyncStatus('Erro ao carregar');
     }
   } catch(e) {
-    setSyncStatus('Sem conexão — dados locais');
+    setSyncStatus('Sem conexão');
   }
   renderTodayHero();
   renderWeekList();
@@ -444,10 +418,8 @@ async function toggleDone(wi, di, ev) {
   renderTodayHero();
   setSyncStatus('Salvando…');
   try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ action: 'toggle', key })
-    });
+    const url = `${APPS_SCRIPT_URL}?action=toggle&key=${encodeURIComponent(key)}`;
+    const res = await fetch(url);
     const data = await res.json();
     if (data.status === 'added') doneSet.add(key);
     else if (data.status === 'removed') doneSet.delete(key);
@@ -849,7 +821,6 @@ const WEEKS = [
   ]}
 ];
 
-/* ===== HELPERS ===== */
 function getDate(wi, di) {
   const d = new Date(PLAN_START);
   d.setDate(d.getDate() + wi * 7 + di);
@@ -865,7 +836,6 @@ function isPastDay(d) {
   return c < t;
 }
 
-/* ===== NUT HTML ===== */
 function nutHtml(type, desc) {
   const key = getNutKey(type, desc);
   const n = NUT[key];
@@ -879,7 +849,6 @@ function nutHtml(type, desc) {
   return html;
 }
 
-/* ===== TODAY HERO ===== */
 function findTodayData() {
   for (let wi = 0; wi < WEEKS.length; wi++) {
     for (let di = 0; di < 7; di++) {
@@ -914,11 +883,10 @@ function renderTodayHero() {
   document.getElementById('tpb-fill').style.width = pct + '%';
   document.getElementById('tpb-label').textContent = `Semana ${wk.w} de 25 · ${ph.n}: ${ph.s}`;
   document.getElementById('tpb-days').textContent = `${daysToRace} dias para a prova 🏁`;
-  const dayName = DAY_NAMES_PT[di];
   hero.innerHTML = `
     <div class="today-hero-header">
       <span class="today-badge">HOJE</span>
-      <span class="today-date">${dayName}, ${fmtDate(TODAY_DATE)} · S${wk.w}</span>
+      <span class="today-date">${DAY_NAMES_PT[di]}, ${fmtDate(TODAY_DATE)} · S${wk.w}</span>
       ${isDone ? '<span class="today-done-badge">✅ Concluído</span>' : ''}
     </div>
     <div class="today-sport-row">
@@ -941,7 +909,6 @@ function renderTodayHero() {
   `;
 }
 
-/* ===== PHASE FILTER ===== */
 let activePhase = 0;
 function renderPhasePills() {
   const container = document.getElementById('phase-pills');
@@ -964,10 +931,8 @@ function filterPhase(ph) {
   renderWeekList();
 }
 
-/* ===== WEEK LIST ===== */
 const openDays = new Set();
 let openWeek = null;
-
 function toggleWeek(wi) {
   openWeek = openWeek === wi ? null : wi;
   openDays.clear();
@@ -999,32 +964,27 @@ function renderWeekList() {
     const weekEnd   = getDate(wi, 6);
     const dateRange = `${fmtDate(weekStart)} – ${fmtDate(weekEnd)}`;
     const hdrClass  = isRace ? 'is-race' : isRec ? 'is-rec' : '';
-
     let daysHtml = '';
     if (isOpen) {
       wk.days.forEach((day, di) => {
-        const dayDate  = getDate(wi, di);
-        const isToday  = isSameDay(dayDate, TODAY_DATE);
-        const isPast   = isPastDay(dayDate);
-        const key      = `${wi}-${di}`;
-        const isDone   = doneSet.has(key);
+        const dayDate   = getDate(wi, di);
+        const isToday   = isSameDay(dayDate, TODAY_DATE);
+        const isPast    = isPastDay(dayDate);
+        const key       = `${wi}-${di}`;
+        const isDone    = doneSet.has(key);
         const isOverdue = isPast && !isDone && !isToday;
         const isExpanded = openDays.has(key);
         const tm = TYPE_META[day.t] || TYPE_META.rest;
-
         let classes = 'train-day';
-        if (isDone)    classes += ' done';
+        if (isDone)         classes += ' done';
         else if (isToday)   classes += ' is-today';
         else if (isOverdue) classes += ' overdue';
-
-        // Done button: show for past days and today
         let actionHtml = '';
         if (isToday) {
           actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓ Feito' : 'Marcar feito'}</button>`;
         } else if (isPast) {
           actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'overdue-mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓' : '⚠'}</button>`;
         }
-
         daysHtml += `
           <div class="${classes}">
             <div class="train-day-header" onclick="toggleDay(${wi}, ${di})">
@@ -1045,7 +1005,6 @@ function renderWeekList() {
           </div>`;
       });
     }
-
     return `
       <div class="week-item" style="border-left-color:${ph.c}">
         <div class="week-header ${hdrClass}" onclick="toggleWeek(${wi})">
@@ -1063,7 +1022,6 @@ function renderWeekList() {
   }).join('');
 }
 
-/* ===== INIT ===== */
 renderPhasePills();
 renderWeekList();
 renderTodayHero();
