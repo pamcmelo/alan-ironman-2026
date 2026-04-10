@@ -65,23 +65,42 @@ const MONTHS_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out'
 const DAY_NAMES_PT = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 let doneSet = new Set();
 
+const LS_KEY = 'ironman_done_v1';
+function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) doneSet = new Set(JSON.parse(raw));
+  } catch(e) {}
+}
+function saveToStorage() {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify([...doneSet]));
+  } catch(e) {}
+}
+loadFromStorage();
+
 async function loadDone() {
-  setSyncStatus('Carregando progresso…');
+  setSyncStatus('Sincronizando…');
+  console.log('[IronMan] loadFromStorage result:', [...doneSet]);
   try {
     const res = await fetch(APPS_SCRIPT_URL);
     const data = await res.json();
+    console.log('[IronMan] Sheets response:', data);
     if (data.status === 'ok') {
-      doneSet = new Set(data.done);
+      data.done.forEach(k => doneSet.add(k));
+      saveToStorage();
+      console.log('[IronMan] doneSet after merge:', [...doneSet]);
       setSyncStatus('Sincronizado ✓');
+      renderHeader();
+      renderTodayHero();
+      renderWeekList();
     } else {
-      setSyncStatus('Erro ao carregar');
+      setSyncStatus('Sheets indisponível — dados locais mantidos');
     }
   } catch(e) {
-    setSyncStatus('Sem conexão');
+    console.error('[IronMan] loadDone error:', e);
+    setSyncStatus('Offline — usando dados locais');
   }
-  renderHeader();
-  renderTodayHero();
-  renderWeekList();
   setTimeout(() => setSyncStatus(''), 3000);
 }
 
@@ -104,6 +123,7 @@ async function toggleDone(wi, di, ev) {
   const key = `${wi}-${di}`;
   const adding = !doneSet.has(key);
   if (adding) doneSet.add(key); else doneSet.delete(key);
+  saveToStorage();
   renderHeader();
   renderWeekList();
   renderTodayHero();
@@ -115,12 +135,13 @@ async function toggleDone(wi, di, ev) {
     const data = await res.json();
     if (data.status === 'added') doneSet.add(key);
     else if (data.status === 'removed') doneSet.delete(key);
+    saveToStorage();
     renderHeader();
     renderWeekList();
     renderTodayHero();
     setSyncStatus('Salvo ✓');
   } catch(e) {
-    setSyncStatus('Falha ao salvar — tente novamente');
+    setSyncStatus('Salvo localmente (sem conexão com Sheets)');
   }
   setTimeout(() => setSyncStatus(''), 3000);
 }
