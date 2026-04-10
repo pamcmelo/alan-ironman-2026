@@ -1,0 +1,728 @@
+/* ===== ALIMENTAÇÃO ===== */
+const D = [
+  { label:"Descanso", kcal:2450, range:"2.400 – 2.500 kcal", ptn:160, cho:265, fat:75, ptnS:"2,6 g/kg massa magra", choS:"4,2 g/kg massa magra", fatS:"1,2 g/kg massa magra",
+    mfp:[{m:"Café da manhã",d:"Refeição completa — sem pressão de pré-treino."},{m:"Almoço",d:"Proteína + carboidrato complexo + gordura boa. Maior refeição do dia."},{m:"Lanche",d:"Fruta + fonte de proteína leve (iogurte, ovo, whey)."},{m:"Jantar",d:"Proteína magra + carboidrato moderado + legumes. Incluir creatina 5g."},{m:"Ceia",d:"Iogurte grego + granola + mel + ômega-3 + magnésio 300mg."}]},
+  { label:"Musculação", kcal:2750, range:"2.700 – 2.800 kcal", ptn:165, cho:320, fat:78, ptnS:"2,6 g/kg massa magra", choS:"5,1 g/kg massa magra", fatS:"1,3 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Whey 20g + banana + café — ou 2 ovos + tapioca 60g + café. Registre no MFP."},{m:"Intra-treino",d:"Apenas água. Sem gel ou carboidrato — sessão de 60–70 min não exige reposição."},{m:"Pós-treino",d:"Whey 30g + banana. Janela de 30 min. Parte do total diário."},{m:"Almoço",d:"Arroz 150g + frango 180g + legumes + azeite. Completa o saldo calórico."},{m:"Jantar + ceia",d:"Proteína + carboidrato moderado. Creatina 5g no jantar, magnésio na ceia."}]},
+  { label:"Natação", kcal:2900, range:"2.800 – 3.000 kcal", ptn:168, cho:355, fat:82, ptnS:"2,7 g/kg massa magra", choS:"5,7 g/kg massa magra", fatS:"1,3 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Banana + café preto. Registre no MFP antes de sair."},{m:"Intra-treino",d:"Até 60 min: apenas água (sem calorias). Acima de 60 min: isotônico 200ml — registre."},{m:"Pós-treino",d:"Whey 30g + fruta. Janela de 30 min. Faz parte do total do dia."},{m:"Refeições",d:"Distribua as calorias restantes em almoço, lanche e jantar normalmente."}]},
+  { label:"Bike curto", kcal:3250, range:"3.100 – 3.400 kcal", ptn:172, cho:430, fat:85, ptnS:"2,8 g/kg massa magra", choS:"6,9 g/kg massa magra", fatS:"1,4 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Aveia 80g + banana + mel + café. Registre no MFP — faz parte da meta do dia."},{m:"Intra-treino",d:"Se > 90 min: 1 gel (≈110 kcal) + 700ml água/hora. Registre o gel no MFP."},{m:"Pós-treino",d:"Whey 30g + banana. Janela de 30 min. Parte do total diário."},{m:"Refeições",d:"O saldo restante (meta menos o que já consumiu) vai para almoço, lanche e jantar."}]},
+  { label:"Bike longo", kcal:3850, range:"3.700 – 4.000 kcal", ptn:180, cho:555, fat:92, ptnS:"2,9 g/kg massa magra", choS:"8,9 g/kg massa magra", fatS:"1,5 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Arroz 250g + frango 150g + azeite (2–3h antes). Registre no MFP."},{m:"Intra-treino",d:"4–6 géis (≈440–660 kcal) + isotônico. Registre cada gel individualmente no MFP."},{m:"Pós-treino",d:"Whey 40g + banana + sal. Janela de 30 min. Parte do total — não some por cima."},{m:"Refeições",d:"Almoço reforçado + lanche + jantar completam o saldo. Não pule — metabolismo segue consumindo glicogênio por 2–4h após o pedal."}]},
+  { label:"Corrida curta", kcal:3100, range:"3.000 – 3.200 kcal", ptn:170, cho:400, fat:83, ptnS:"2,7 g/kg massa magra", choS:"6,4 g/kg massa magra", fatS:"1,3 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Banana + mel + café. Registre no MFP antes de sair."},{m:"Intra-treino",d:"Sessões < 70 min: apenas água — sem gel, sem calorias a registrar."},{m:"Pós-treino",d:"Whey 30g + fruta. Janela de 30 min. Parte do total diário."},{m:"Refeições",d:"Distribua o saldo em almoço, lanche e jantar. Proteína magra + CHO complexo."}]},
+  { label:"Corrida longa", kcal:3750, range:"3.600 – 3.900 kcal", ptn:178, cho:530, fat:90, ptnS:"2,9 g/kg massa magra", choS:"8,5 g/kg massa magra", fatS:"1,4 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Aveia 80g + banana + mel + café + eletrolito. Registre no MFP."},{m:"Intra-treino",d:"1 gel a cada 40–45 min (≈110 kcal cada). Registre cada gel no MFP."},{m:"Pós-treino",d:"Whey 40g + banana + sal. Janela de 30 min. Parte do total — não some por cima."},{m:"Refeições",d:"Batata-doce 250g + frango 180g + legumes no almoço. Jantar completo. Não pule."}]},
+  { label:"Corrida + gym", kcal:3350, range:"3.200 – 3.500 kcal", ptn:175, cho:450, fat:86, ptnS:"2,8 g/kg massa magra", choS:"7,2 g/kg massa magra", fatS:"1,4 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Banana + café (serve para os dois treinos). Registre no MFP."},{m:"Intra-treino",d:"Apenas água nos dois treinos — duração individual não justifica gel."},{m:"Pós-treino",d:"Uma janela única após o último treino do dia: whey 30g + banana. 30 min. Parte do total."},{m:"Refeições",d:"Distribua o saldo restante em almoço, lanche e jantar. Dia de volume alto — não corte."}]},
+  { label:"Natação + gym", kcal:3200, range:"3.100 – 3.350 kcal", ptn:172, cho:415, fat:84, ptnS:"2,8 g/kg massa magra", choS:"6,7 g/kg massa magra", fatS:"1,3 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Whey 20g + banana + café (ou 2 ovos + tapioca se musculação vier primeiro). Registre."},{m:"Intra-treino",d:"Apenas água. Sem gel nos dois treinos — durações individuais não exigem."},{m:"Pós-treino",d:"Whey 30g + fruta após o último treino. Janela de 30 min. Parte do total diário."},{m:"Refeições",d:"O saldo vai para almoço, lanche e jantar. Proteína alta é a prioridade do dia."}]},
+  { label:"—", kcal:0, range:"", ptn:0, cho:0, fat:0, ptnS:"", choS:"", fatS:"", mfp:[] },
+  { label:"Brick padrão", kcal:4050, range:"3.800 – 4.300 kcal", ptn:182, cho:590, fat:94, ptnS:"2,9 g/kg massa magra", choS:"9,5 g/kg massa magra", fatS:"1,5 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Arroz 250g + frango 150g + azeite (2–3h antes) + gel 30 min antes. Registre tudo."},{m:"Intra bike",d:"1 gel a cada 45 min (≈3–4 géis). Registre cada um no MFP durante ou após."},{m:"Intra corrida",d:"1 gel a cada 40 min se corrida > 8 km + água em todos os postos. Registre."},{m:"Pós-treino",d:"Whey 40g + banana + sal. 30 min. Está dentro da meta — não some por cima."},{m:"Refeições",d:"Confira o saldo no MFP e complete com almoço/jantar reforçados. Não pule refeições."}]},
+  { label:"Brick longo", kcal:4400, range:"4.200 – 4.600 kcal", ptn:187, cho:660, fat:100, ptnS:"3,0 g/kg massa magra", choS:"10,6 g/kg massa magra", fatS:"1,6 g/kg massa magra",
+    mfp:[{m:"Pré-treino",d:"Arroz 250g + frango 150g + azeite + gel 30 min antes. Registre tudo no MFP."},{m:"Intra bike",d:"1 gel a cada 40–45 min (4–6 géis ≈ 440–660 kcal). Registre cada gel."},{m:"Intra corrida",d:"1 gel a cada 40 min + água. Meta: 60–80g CHO/hora ao longo de todo o treino."},{m:"Pós-treino",d:"Whey 40g + banana + sal. 30 min. Parte do total — não some por cima."},{m:"Refeições",d:"O saldo no MFP vai indicar o quanto falta. Duas refeições completas pós-brick são obrigatórias."}]},
+  { label:"Simulado completo", kcal:4700, range:"4.400 – 5.000 kcal", ptn:190, cho:720, fat:105, ptnS:"3,0 g/kg massa magra", choS:"11,5 g/kg massa magra", fatS:"1,7 g/kg massa magra",
+    mfp:[{m:"Café da manhã",d:"Aveia 100g + 2 bananas + mel + café + sal. 04:30. Registre — é o maior dia do ciclo."},{m:"Pré-largada",d:"2 géis + eletrolito entre 06:00 e 06:30. Registre no MFP antes de iniciar."},{m:"Intra bike+corrida",d:"6–8 géis ao longo do treino completo. Registre individualmente no MFP."},{m:"Pós-treino",d:"Whey 40g + banana + isotônico 600ml. 30 min. Parte do total — não some por cima."},{m:"Refeições",d:"Confira o saldo. Duas refeições completas são obrigatórias — metabolismo segue elevado por horas."}]},
+];
+let curAlim = 0;
+function sel(i) {
+  if (i === 9) return;
+  curAlim = i;
+  document.querySelectorAll('.day-card').forEach((c, idx) => c.classList.toggle('selected', idx === i));
+  const d = D[i]; if (!d || d.kcal === 0) return;
+  document.getElementById('kcal-val').textContent = d.kcal.toLocaleString('pt-BR');
+  document.getElementById('kcal-range').textContent = 'Faixa: ' + d.range;
+  document.getElementById('kcal-pill').textContent = d.label;
+  document.getElementById('ptn-val').textContent = d.ptn;
+  document.getElementById('cho-val').textContent = d.cho;
+  document.getElementById('fat-val').textContent = d.fat;
+  const pp = Math.round((d.ptn*4/d.kcal)*100), cp = Math.round((d.cho*4/d.kcal)*100), fp = Math.round((d.fat*9/d.kcal)*100);
+  document.getElementById('ptn-bar').style.width = Math.min(pp*2.8,100)+'%';
+  document.getElementById('cho-bar').style.width = Math.min(cp*1.6,100)+'%';
+  document.getElementById('fat-bar').style.width = Math.min(fp*3.2,100)+'%';
+  document.getElementById('ptn-sub').textContent = d.ptnS+' · '+pp+'% kcal';
+  document.getElementById('cho-sub').textContent = d.choS+' · '+cp+'% kcal';
+  document.getElementById('fat-sub').textContent = d.fatS+' · '+fp+'% kcal';
+  document.getElementById('mfp-header').textContent = 'Como distribuir as '+d.kcal.toLocaleString('pt-BR')+' kcal do dia';
+  document.getElementById('mfp-rows').innerHTML = d.mfp.map(r=>'<div class="mfp-row"><div class="mfp-moment">'+r.m+'</div><div class="mfp-desc">'+r.d+'</div></div>').join('');
+}
+function switchTab(t) {
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',(i===0&&t==='alim')||(i===1&&t==='treino')));
+  document.getElementById('tab-alim').classList.toggle('visible',t==='alim');
+  document.getElementById('tab-treino').classList.toggle('visible',t==='treino');
+}
+sel(0);
+
+/* ===== TRAINING ===== */
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwQ_YulNwOsIyA5GxSYyjnO9qaFEj2ndCOgpNRZyuuKX53Qh0fTjJ_zAA1DHZDHWEOTw/exec';
+const TODAY_DATE = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+const PLAN_START = new Date(2026, 2, 30);
+const RACE_DATE  = new Date(2026, 8, 20);
+const TOTAL_DAYS = 25 * 7;
+const MONTHS_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const DAY_NAMES_PT = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+let doneSet = new Set();
+
+async function loadDone() {
+  setSyncStatus('Carregando progresso…');
+  try {
+    const res = await fetch(APPS_SCRIPT_URL);
+    const data = await res.json();
+    if (data.status === 'ok') {
+      doneSet = new Set(data.done);
+      setSyncStatus('Sincronizado ✓');
+    } else {
+      setSyncStatus('Erro ao carregar');
+    }
+  } catch(e) {
+    setSyncStatus('Sem conexão');
+  }
+  renderHeader();
+  renderTodayHero();
+  renderWeekList();
+  setTimeout(() => setSyncStatus(''), 3000);
+}
+
+function extractMetrics(wi, di) {
+  const wk   = WEEKS[wi];
+  const desc = wk.days[di].c;
+  const toNum = s => parseFloat(s.replace(/\./g, '').replace(',', '.')) || 0;
+  let run_km = 0, bike_km = 0, swim_m = 0;
+  const rm = desc.match(/corrida\s+([\d.]+)\s*km/i);
+  if (rm) run_km = toNum(rm[1]);
+  const bm = desc.match(/bike(?:\s+mtb)?\s+([\d.]+)\s*km/i);
+  if (bm) bike_km = toNum(bm[1]);
+  const sm = desc.match(/nata[çc][ãa]o\s+([\d.]+)\s*m\b/i);
+  if (sm) swim_m = toNum(sm[1]);
+  return { fase: wk.ph, descricao: desc, run_km, bike_km, swim_m };
+}
+
+async function toggleDone(wi, di, ev) {
+  ev.stopPropagation();
+  const key = `${wi}-${di}`;
+  const adding = !doneSet.has(key);
+  if (adding) doneSet.add(key); else doneSet.delete(key);
+  renderHeader();
+  renderWeekList();
+  renderTodayHero();
+  setSyncStatus('Salvando…');
+  try {
+    const m = extractMetrics(wi, di);
+    const url = `${APPS_SCRIPT_URL}?action=toggle&key=${encodeURIComponent(key)}&fase=${m.fase}&descricao=${encodeURIComponent(m.descricao)}&run_km=${m.run_km}&bike_km=${m.bike_km}&swim_m=${m.swim_m}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.status === 'added') doneSet.add(key);
+    else if (data.status === 'removed') doneSet.delete(key);
+    renderHeader();
+    renderWeekList();
+    renderTodayHero();
+    setSyncStatus('Salvo ✓');
+  } catch(e) {
+    setSyncStatus('Falha ao salvar — tente novamente');
+  }
+  setTimeout(() => setSyncStatus(''), 3000);
+}
+
+function setSyncStatus(msg) {
+  const el = document.getElementById('sync-status');
+  if (el) el.textContent = msg;
+}
+
+function renderHeader() {
+  const daysToRace = Math.ceil((RACE_DATE - TODAY_DATE) / 86400000);
+  const doneCt = doneSet.size;
+  const pct = Math.round(Math.min(100, (doneCt / TOTAL_DAYS) * 100));
+  document.getElementById('cd-num').textContent = Math.max(0, daysToRace);
+  document.getElementById('cd-label').textContent = daysToRace > 0
+    ? 'dias para a prova 🏁'
+    : daysToRace === 0 ? 'É hoje! Vai lá, soldado! 💪' : 'Prova concluída 🏅';
+  document.getElementById('tpb-fill').style.width = pct + '%';
+  document.getElementById('tpb-label').textContent = `${doneCt} de ${TOTAL_DAYS} dias concluídos`;
+  document.getElementById('tpb-right').textContent = `${pct}% do plano ✓`;
+}
+
+const PHASES = [
+  {id:1, n:"Fase 1", s:"Base terrestre", c:"#0F6E56"},
+  {id:2, n:"Fase 2", s:"Bacalar", c:"#185FA5"},
+  {id:3, n:"Fase 3", s:"Natação + build", c:"#534AB7"},
+  {id:4, n:"Fase 4", s:"Volume + bricks", c:"#BA7517"},
+  {id:5, n:"Fase 5", s:"Pico de carga", c:"#A32D2D"},
+  {id:6, n:"Fase 6", s:"Taper", c:"#5F5E5A"},
+  {id:7, n:"Fase 7", s:"Prova!", c:"#3B6D11"},
+];
+
+const NUT = {
+  rest: { pre: null, intra: null, post: null },
+  'run-short': {
+    pre:   ['Banana madura + mel 1 col. · Café preto 80–150mg cafeína','200–300ml água temperatura ambiente'],
+    intra: ['Apenas água quando disponível','Sem gel em sessões < 70min'],
+    post:  ['Whey 30g + fruta (banana, laranja, mamão)','Refeição em 60min: proteína magra + CHO complexo']
+  },
+  'run-long': {
+    pre:   ['Aveia 80g + banana + mel + café · 400–500ml água com eletrólito','Opcional: 1 gel 15min antes do início'],
+    intra: ['1 gel (30–40g CHO) a cada 40–45min · 500–700ml água/hora','Cozumel/Playa: sempre 700ml/h (umidade 70–85%)','Se >2h: gel com sódio 200–300mg/gel'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · Imediato (0–30min)','Batata-doce 250g + frango 180g + legumes em 60min','Água de coco 600ml — eletrólitos naturais']
+  },
+  'bike-short': {
+    pre:   ['Aveia 80g + banana + mel + café · Evitar fibras em excesso','400ml água + pitada de sal · Café 200mg 45–60min antes'],
+    intra: ['500–700ml água/hora · Clima tropical: sempre 700ml/h','Gel (30–40g CHO) se treino ultrapassar 90min'],
+    post:  ['Whey 30g + banana · Janela 30min','Arroz 150g + frango 150g + azeite em 60min']
+  },
+  'bike-long': {
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal','30min antes: 1 gel + 300ml água + cápsula eletrólito completo','⚠️ Esta combinação = IDÊNTICA ao café da manhã da prova — teste e valide'],
+    intra: ['1 gel (30–40g CHO) a cada 40–45min · 4–6 géis total','600–750ml água/hora · 500–1.000mg sódio/hora','Objetivo CHO: 60–80g/hora para poupar glicogênio'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min','Arroz 250g + frango/peixe 180g + legumes em 60min','Isotônico 600–800ml nas 2h seguintes']
+  },
+  swim: {
+    pre:   ['Banana média + café preto 80mg cafeína','200–300ml água temperatura ambiente'],
+    intra: ['Sessões até 60min: apenas água','Sessões acima de 60min: isotônico 200ml a cada parada técnica'],
+    post:  ['Whey 30g + leite desnatado 200ml ou água','Fruta de rápida absorção: banana, mamão ou manga (30–40g CHO)','Refeição completa em até 60min']
+  },
+  gym: {
+    pre:   ['Opção A (rápido): Whey 20g + banana + café preto','Opção B (refeição): 2 ovos mexidos + tapioca 60g + café','Cafeína 200mg — 45–60min antes'],
+    intra: ['400–600ml água na sessão','Carboidrato intra desnecessário em sessões de 60–70min de força'],
+    post:  ['Whey 30g + banana · Janela 30min (fundamental para fases 1–2)','Refeição em 60min: proteína + CHO complexo + gordura boa']
+  },
+  'run+gym': {
+    pre:   ['Banana + café preto (serve para os dois treinos)','200–300ml água'],
+    intra: ['Apenas água nos dois treinos','Duração individual não justifica gel'],
+    post:  ['Janela única após o último treino: Whey 30g + banana','Refeição completa em 60min — dia de volume alto, não corte']
+  },
+  'swim+gym': {
+    pre:   ['Whey 20g + banana + café','Ou 2 ovos + tapioca 60g se musculação vier primeiro'],
+    intra: ['Apenas água nos dois treinos','Durações individuais não exigem suplementação intra'],
+    post:  ['Whey 30g + fruta após o último treino · Janela 30min','Proteína alta é a prioridade — saldo vai para almoço, lanche e jantar']
+  },
+  'brick-std': {
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho','30min antes: 1 gel + 400ml água + cápsula eletrólito completo','Café 200mg · Tratar o pré-brick como dia de prova desde a sem. 14'],
+    intra: ['🚴 Bike: 1 gel a cada 45min (3–4 géis) · 700ml água/hora','⚡ T2: 1 gel rápido + gole de água (máx 90 segundos na transição)','🏃 Corrida: 1 gel a cada 40min se >8km + água em todos os postos'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min','Arroz 250g + proteína 200g em 60min','Isotônico 1–1,5L nas 2h · Pular pós-brick impacta o próximo treino']
+  },
+  'brick-long': {
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho','30min antes: 1 gel + 400ml água + eletrólito completo'],
+    intra: ['🚴 Bike: 1 gel a cada 40–45min (4–6 géis) · 700ml água/hora','⚡ T2: 1 gel rápido · 🏃 Corrida: 1 gel a cada 40min','Meta CHO: 60–80g/hora ao longo de todo o treino'],
+    post:  ['Whey 40g + banana + sal · 0–30min','Duas refeições completas pós-brick são obrigatórias','Iogurte grego 200g + granola 50g + mel ~ 3h após se necessário']
+  },
+  'brick-race': {
+    pre:   ['04:30: Aveia 100g + 2 bananas + mel 2 col. + café + sal','06:00–06:30: 2 géis + 500ml água + cápsula eletrólito','Tratar como dia de prova real — sem nada novo'],
+    intra: ['6–8 géis ao longo do treino completo · Registre cada um','🚴 Bike: gel a cada 40min + isotônico | ⚡ T2: gel rápido | 🏃 Corrida: gel a cada 40min','Água em todos os postos — nunca pular'],
+    post:  ['Whey 40g + banana + isotônico 600ml · 0–30min','Duas refeições completas obrigatórias','Metabolismo segue elevado por horas — não pule']
+  }
+};
+
+function getNutKey(type, desc) {
+  const d = (desc||'').toLowerCase();
+  if (type === 'rest') return 'rest';
+  if (type === 'gym') return 'gym';
+  if (type === 'run+gym') return 'run+gym';
+  if (type === 'swim+gym') return 'swim+gym';
+  if (type === 'swim') return 'swim';
+  if (type === 'brick') {
+    if (d.includes('simulado') || d.includes('completo')) return 'brick-race';
+    const m = d.match(/corrida\s*(\d+)/i);
+    if (m && parseInt(m[1]) >= 14) return 'brick-long';
+    return 'brick-std';
+  }
+  if (type === 'bike') {
+    const m = d.match(/(\d+)\s*km/i);
+    return (m && parseInt(m[1]) >= 60) ? 'bike-long' : 'bike-short';
+  }
+  if (type === 'run') {
+    const m = d.match(/(\d+)\s*km/i);
+    const km = m ? parseInt(m[1]) : 0;
+    if (km >= 14 || d.includes('maratona') || d.includes('21km') || d.includes('21 km')) return 'run-long';
+    return 'run-short';
+  }
+  return 'rest';
+}
+
+const TYPE_META = {
+  swim:      {ic:'🏊', bg:'var(--sw)', tc:'var(--sc)', name:'Natação'},
+  bike:      {ic:'🚴', bg:'var(--bw)', tc:'var(--bc)', name:'Bike'},
+  run:       {ic:'🏃', bg:'var(--rn)', tc:'var(--rc)', name:'Corrida'},
+  gym:       {ic:'💪', bg:'var(--gm)', tc:'var(--gc)', name:'Musculação'},
+  brick:     {ic:'🔥', bg:'var(--br)', tc:'var(--brc)', name:'Brick'},
+  rest:      {ic:'😴', bg:'var(--rs)', tc:'var(--rsc)', name:'Descanso'},
+  'run+gym': {ic:'🏃', bg:'var(--rn)', tc:'var(--rc)', name:'Corrida + Musculação'},
+  'swim+gym':{ic:'🏊', bg:'var(--sw)', tc:'var(--sc)', name:'Natação + Musculação'},
+};
+
+const WEEKS = [
+  {w:1,ph:1,loc:"Cidade atual",foc:"Entrada suave. Ativar glúteo médio. Protocolo joelho todo dia.",rec:false,
+   tot:{sw:"—",bk:"100km",rn:"20km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 6km fácil (6:10–6:30/km) + Musculação: glúteo médio, core, funcional"},
+    {t:"bike",   c:"Bike MTB 40km — ritmo aeróbico confortável"},
+    {t:"run+gym",c:"Corrida 8km moderado (5:50–6:10/km) + Musculação"},
+    {t:"rest",   c:"Descanso ativo: caminhada, rolo de espuma, mobilidade"},
+    {t:"run+gym",c:"Corrida 6km fácil + Musculação"},
+    {t:"bike",   c:"Bike MTB 60km longo — ritmo controlado"},
+    {t:"run",    c:"Corrida 10km longo fácil (6:10–6:30/km)"}
+  ]},
+  {w:2,ph:1,loc:"Cidade atual",foc:"Aumentar volume gradualmente. Manter ritmo fácil nos treinos longos.",rec:false,
+   tot:{sw:"—",bk:"110km",rn:"22km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 7km fácil + Musculação"},
+    {t:"bike",   c:"Bike 45km — 2×10min em ritmo moderado-forte"},
+    {t:"run+gym",c:"Corrida 9km moderado + Musculação"},
+    {t:"rest",   c:"Descanso ativo: rolo de espuma, alongamento 20min"},
+    {t:"run+gym",c:"Corrida 7km fácil + Musculação"},
+    {t:"bike",   c:"Bike 65km longo — pace constante e aeróbico"},
+    {t:"run",    c:"Corrida 12km longo (6:10–6:30/km)"}
+  ]},
+  {w:3,ph:1,loc:"Cidade atual",foc:"Semana mais exigente da fase 1. Bike 70km. Corrida 15km.",rec:false,
+   tot:{sw:"—",bk:"120km",rn:"26km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 8km + Musculação"},
+    {t:"bike",   c:"Bike 50km — 3×8min em ritmo forte intercalados"},
+    {t:"run+gym",c:"Corrida 10km moderado + Musculação"},
+    {t:"rest",   c:"Descanso ativo completo"},
+    {t:"run+gym",c:"Corrida 8km + Musculação"},
+    {t:"bike",   c:"Bike 70km longo"},
+    {t:"run",    c:"Corrida 15km longo fácil"}
+  ]},
+  {w:4,ph:1,loc:"Bacalar (chegando)",foc:"⚡ RECUPERAÇÃO — Volume reduzido. Corpo assimila o treino.",rec:true,
+   tot:{sw:"—",bk:"85km",rn:"20km",gm:"2×"},
+   days:[
+    {t:"run+gym",c:"Corrida 6km fácil + Musculação leve"},
+    {t:"bike",   c:"Bike 35km fácil, sem forçar"},
+    {t:"run+gym",c:"Corrida 8km + Musculação leve"},
+    {t:"rest",   c:"Descanso completo"},
+    {t:"run",    c:"Corrida 6km fácil"},
+    {t:"bike",   c:"Bike 50km fácil"},
+    {t:"run",    c:"Corrida 10km fácil"}
+  ]},
+  {w:5,ph:2,loc:"Bacalar",foc:"Reiniciar com energia da recuperação. Aproveitar a lagoa para contato com a água.",rec:false,
+   tot:{sw:"—",bk:"120km",rn:"26km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 8km + Musculação"},
+    {t:"bike",   c:"Bike 50km moderado"},
+    {t:"run+gym",c:"Corrida 10km moderado + Musculação"},
+    {t:"rest",   c:"Descanso ativo"},
+    {t:"run+gym",c:"Corrida 8km + Musculação"},
+    {t:"bike",   c:"Bike 70km longo"},
+    {t:"run",    c:"Corrida 15km longo"}
+  ]},
+  {w:6,ph:2,loc:"Bacalar",foc:"Aumentar volume de corrida. Bike com intervalos curtos.",rec:false,
+   tot:{sw:"—",bk:"130km",rn:"29km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 9km + Musculação"},
+    {t:"bike",   c:"Bike 55km — 3×10min forte"},
+    {t:"run+gym",c:"Corrida 11km moderado + Musculação"},
+    {t:"rest",   c:"Descanso ativo"},
+    {t:"run+gym",c:"Corrida 9km + Musculação"},
+    {t:"bike",   c:"Bike 75km longo"},
+    {t:"run",    c:"Corrida 17km longo fácil"}
+  ]},
+  {w:7,ph:2,loc:"Bacalar",foc:"Maior carga da fase 2. Bike 80km. Corrida 18km.",rec:false,
+   tot:{sw:"—",bk:"135km",rn:"32km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 10km + Musculação"},
+    {t:"bike",   c:"Bike 55km — intervalos de resistência"},
+    {t:"run+gym",c:"Corrida 12km + Musculação"},
+    {t:"rest",   c:"Descanso completo"},
+    {t:"run+gym",c:"Corrida 10km + Musculação"},
+    {t:"bike",   c:"Bike 80km longo — simular esforço de prova"},
+    {t:"run",    c:"Corrida 18km longo (6:10–6:30/km)"}
+  ]},
+  {w:8,ph:2,loc:"Bacalar → Playa del Carmen",foc:"Manter carga. Transição para Playa del Carmen.",rec:false,
+   tot:{sw:"—",bk:"140km",rn:"32km",gm:"3×"},
+   days:[
+    {t:"run+gym",c:"Corrida 10km + Musculação"},
+    {t:"bike",   c:"Bike 60km"},
+    {t:"run+gym",c:"Corrida 12km + Musculação"},
+    {t:"rest",   c:"Descanso ativo"},
+    {t:"run+gym",c:"Corrida 10km + Musculação"},
+    {t:"bike",   c:"Bike 80km longo"},
+    {t:"run",    c:"Corrida 18km longo"}
+  ]},
+  {w:9,ph:2,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para entrada na natação em junho.",rec:true,
+   tot:{sw:"—",bk:"95km",rn:"23km",gm:"2×"},
+   days:[
+    {t:"run+gym",c:"Corrida 7km fácil + Musculação leve"},
+    {t:"bike",   c:"Bike 40km fácil"},
+    {t:"run+gym",c:"Corrida 9km + Musculação leve"},
+    {t:"rest",   c:"Descanso completo"},
+    {t:"run",    c:"Corrida 7km fácil"},
+    {t:"bike",   c:"Bike 55km fácil"},
+    {t:"run",    c:"Corrida 12km fácil"}
+  ]},
+  {w:10,ph:3,loc:"Playa del Carmen",foc:"🏊 NATAÇÃO COMEÇA! Foco total em técnica. Entrar na água 3× esta semana.",rec:false,
+   tot:{sw:"2.000m",bk:"140km",rn:"26km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 600m — técnica de crawl, respiração bilateral + Musculação"},
+    {t:"run",     c:"Corrida 10km moderado"},
+    {t:"swim+gym",c:"Natação 700m — posição do corpo, sighting no mar + Musculação"},
+    {t:"bike",    c:"Bike 60km"},
+    {t:"swim",    c:"Natação 700m — distância contínua + orientação no mar"},
+    {t:"bike",    c:"Bike 80km longo"},
+    {t:"run",     c:"Corrida 16km longo fácil"}
+  ]},
+  {w:11,ph:3,loc:"Playa del Carmen",foc:"Chegar em 1.000m contínuos. Manter volume de bike e corrida.",rec:false,
+   tot:{sw:"2.800m",bk:"140km",rn:"29km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 800m — posição da cabeça, braçada + Musculação"},
+    {t:"run",     c:"Corrida 11km moderado"},
+    {t:"swim+gym",c:"Natação 1.000m — nadar em linha reta, praticar sighting + Musculação"},
+    {t:"bike",    c:"Bike 60km — 3×8min forte"},
+    {t:"swim",    c:"Natação 1.000m — ritmo contínuo sem parar"},
+    {t:"bike",    c:"Bike 80km longo"},
+    {t:"run",     c:"Corrida 18km longo"}
+  ]},
+  {w:12,ph:3,loc:"Playa del Carmen",foc:"Chegar em 1.200m contínuos. Bike 85km. Corrida 19km.",rec:false,
+   tot:{sw:"3.400m",bk:"150km",rn:"30km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.000m + progressão de ritmo nos últimos 300m + Musculação"},
+    {t:"run",     c:"Corrida 11km"},
+    {t:"swim+gym",c:"Natação 1.200m — ritmo constante + Musculação"},
+    {t:"bike",    c:"Bike 65km"},
+    {t:"swim",    c:"Natação 1.200m contínuos — sem parar"},
+    {t:"bike",    c:"Bike 85km longo"},
+    {t:"run",     c:"Corrida 19km longo fácil"}
+  ]},
+  {w:13,ph:3,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Consolidar técnica de nado.",rec:true,
+   tot:{sw:"2.400m",bk:"105km",rn:"22km",gm:"1×"},
+   days:[
+    {t:"swim+gym",c:"Natação 800m fácil + exercícios de técnica + Musculação leve"},
+    {t:"run",     c:"Corrida 8km fácil"},
+    {t:"swim",    c:"Natação 800m — drills de braçada e posição"},
+    {t:"bike",    c:"Bike 45km fácil"},
+    {t:"swim",    c:"Natação 800m contínuos"},
+    {t:"bike",    c:"Bike 60km moderado"},
+    {t:"run",     c:"Corrida 14km fácil"}
+  ]},
+  {w:14,ph:4,loc:"Playa del Carmen",foc:"🔥 BRICKS INICIAM! Natação 4×/semana. Brick sexta: Bike 65km + Corrida 8km.",rec:false,
+   tot:{sw:"3.800m",bk:"150km",rn:"38km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.200m + Musculação"},
+    {t:"run",     c:"Corrida 11km moderado"},
+    {t:"swim+gym",c:"Natação 1.400m contínuos + Musculação"},
+    {t:"swim",    c:"Natação 1.200m — ritmo de prova"},
+    {t:"brick",   c:"🔥 BRICK: Bike 65km → Corrida 8km (transição real, sem parar)"},
+    {t:"bike",    c:"Bike 85km longo"},
+    {t:"run",     c:"Corrida 19km longo"}
+  ]},
+  {w:15,ph:4,loc:"Playa del Carmen",foc:"Brick maior. Natação chegando em 1.600m. Corrida 20km.",rec:false,
+   tot:{sw:"4.400m",bk:"157km",rn:"42km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.400m + Musculação"},
+    {t:"run",     c:"Corrida 12km moderado"},
+    {t:"swim+gym",c:"Natação 1.600m contínuos + Musculação"},
+    {t:"swim",    c:"Natação 1.400m — ritmo e sighting"},
+    {t:"brick",   c:"🔥 BRICK: Bike 70km → Corrida 10km"},
+    {t:"bike",    c:"Bike 87km longo"},
+    {t:"run",     c:"Corrida 20km longo"}
+  ]},
+  {w:16,ph:4,loc:"Playa del Carmen",foc:"1.900m na natação pela 1ª vez! Meia maratona completa no domingo.",rec:false,
+   tot:{sw:"4.900m",bk:"163km",rn:"45km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.500m + Musculação"},
+    {t:"run",     c:"Corrida 12km"},
+    {t:"swim+gym",c:"Natação 1.900m 🎯 — distância real da prova completa! + Musculação"},
+    {t:"swim",    c:"Natação 1.500m — ritmo de prova"},
+    {t:"brick",   c:"🔥 BRICK: Bike 75km → Corrida 12km"},
+    {t:"bike",    c:"Bike 88km longo"},
+    {t:"run",     c:"Corrida 21km — meia maratona completa!"}
+  ]},
+  {w:17,ph:4,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Manter frequência.",rec:true,
+   tot:{sw:"3.200m",bk:"110km",rn:"22km",gm:"1×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.000m fácil + Musculação leve"},
+    {t:"run",     c:"Corrida 8km fácil"},
+    {t:"swim",    c:"Natação 1.200m fácil"},
+    {t:"bike",    c:"Bike 50km fácil"},
+    {t:"swim",    c:"Natação 1.000m"},
+    {t:"bike",    c:"Bike 60km"},
+    {t:"run",     c:"Corrida 14km fácil"}
+  ]},
+  {w:18,ph:5,loc:"Playa del Carmen",foc:"PICO INICIA. Natação 2.000m+. Brick longo. Musculação entra em manutenção mínima.",rec:false,
+   tot:{sw:"5.200m",bk:"170km",rn:"48km",gm:"1×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.600m + Musculação (última semana de musculação intensa)"},
+    {t:"run",     c:"Corrida 13km moderado"},
+    {t:"swim",    c:"Natação 2.000m — acima da distância da prova"},
+    {t:"swim",    c:"Natação 1.600m ritmo de prova"},
+    {t:"brick",   c:"🔥 BRICK LONGO: Bike 80km → Corrida 14km"},
+    {t:"bike",    c:"Bike 90km longo"},
+    {t:"run",     c:"Corrida 21km fácil"}
+  ]},
+  {w:19,ph:5,loc:"Playa del Carmen",foc:"Pico máximo de volume. Brick 80km + 16km. Musculação suspensa.",rec:false,
+   tot:{sw:"5.400m",bk:"170km",rn:"50km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.700m"},
+    {t:"run",     c:"Corrida 13km moderado"},
+    {t:"swim",    c:"Natação 2.000m — ritmo de prova"},
+    {t:"swim",    c:"Natação 1.700m"},
+    {t:"brick",   c:"🔥 BRICK PICO: Bike 80km → Corrida 16km"},
+    {t:"bike",    c:"Bike 90km longo"},
+    {t:"run",     c:"Corrida 21km"}
+  ]},
+  {w:20,ph:5,loc:"Playa del Carmen",foc:"Simulado completo: Natação + Bike + Corrida. Sábado: descanso total.",rec:false,
+   tot:{sw:"7.200m",bk:"90km",rn:"38km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.700m"},
+    {t:"run",     c:"Corrida 12km moderado"},
+    {t:"swim",    c:"Natação 2.000m"},
+    {t:"swim",    c:"Natação 1.600m"},
+    {t:"brick",   c:"🔥 SIMULADO COMPLETO: Natação 1.900m → Bike 90km → Corrida 10km"},
+    {t:"rest",    c:"Descanso completo — recuperar do simulado"},
+    {t:"run",     c:"Corrida 16km fácil"}
+  ]},
+  {w:21,ph:5,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para o taper final.",rec:true,
+   tot:{sw:"3.800m",bk:"110km",rn:"22km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.200m fácil"},
+    {t:"run",     c:"Corrida 8km fácil"},
+    {t:"swim",    c:"Natação 1.400m"},
+    {t:"bike",    c:"Bike 50km fácil"},
+    {t:"swim",    c:"Natação 1.200m"},
+    {t:"bike",    c:"Bike 60km"},
+    {t:"run",     c:"Corrida 14km fácil"}
+  ]},
+  {w:22,ph:6,loc:"Playa del Carmen",foc:"TAPER — Volume cai 30%. Manter frequência e alguma intensidade.",rec:false,
+   tot:{sw:"4.200m",bk:"130km",rn:"26km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.500m ritmo de prova"},
+    {t:"run",     c:"Corrida 10km — incluir 2km em pace de prova (5:30–5:50/km)"},
+    {t:"swim",    c:"Natação 1.500m"},
+    {t:"bike",    c:"Bike 60km moderado"},
+    {t:"swim",    c:"Natação 1.200m fácil"},
+    {t:"bike",    c:"Bike 70km"},
+    {t:"run",     c:"Corrida 16km fácil"}
+  ]},
+  {w:23,ph:6,loc:"Playa → Cozumel",foc:"Taper ativo. Chegada em Cozumel. Reconhecer percursos de nado e bike.",rec:false,
+   tot:{sw:"4.000m",bk:"105km",rn:"21km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.400m fácil"},
+    {t:"run",     c:"Corrida 9km fácil"},
+    {t:"swim",    c:"Natação 1.400m — testar percurso de nado"},
+    {t:"bike",    c:"Bike 50km — reconhecer parte do percurso"},
+    {t:"swim",    c:"Natação 1.200m fácil"},
+    {t:"bike",    c:"Bike 55km — percurso de bike em Cozumel"},
+    {t:"run",     c:"Corrida 12km fácil — percurso de corrida"}
+  ]},
+  {w:24,ph:7,loc:"Cozumel",foc:"TAPER FINAL. Treinos leves. Equipamento revisado. Testar nutrição de prova.",rec:false,
+   tot:{sw:"3.200m",bk:"40km+",rn:"15km",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 1.200m muito fácil no percurso da prova"},
+    {t:"run",     c:"Corrida 7km fácil (6:00–6:30/km)"},
+    {t:"swim",    c:"Natação 1.200m — familiarizar com correntes e visibilidade"},
+    {t:"bike",    c:"Bike 40km no percurso — reconhecer curvas, vento e asfalto"},
+    {t:"swim",    c:"Natação 800m leve"},
+    {t:"run",     c:"Corrida 8km fácil + mini brick: 30min bike + 20min corrida"},
+    {t:"rest",    c:"Descanso ativo — caminhada, visualização da prova"}
+  ]},
+  {w:25,ph:7,loc:"Cozumel — PROVA",foc:"SEMANA DA PROVA — Descanso máximo. Rotina, sono, nutrição. NADA NOVO!",rec:false,
+   tot:{sw:"—",bk:"—",rn:"—",gm:"—"},
+   days:[
+    {t:"swim",    c:"Natação 800m muito fácil — só para sentir a água"},
+    {t:"run",     c:"Corrida 20min fácil + mobilidade articular"},
+    {t:"swim",    c:"Natação 600m — manter ritmo, sem esforço"},
+    {t:"bike",    c:"Bike 25min fácil — checar equipamento e calibragem dos pneus"},
+    {t:"rest",    c:"Check-in atleta, registro, rack da bike. Descanso completo."},
+    {t:"rest",    c:"Briefing obrigatório, rack da bike, visualização da prova. Dormir cedo (20h)."},
+    {t:"brick",   c:"🏁 IRONMAN 70.3 COZUMEL — DIA DA PROVA! Boa sorte, soldado! 💪"}
+  ]}
+];
+
+function getDate(wi, di) {
+  const d = new Date(PLAN_START);
+  d.setDate(d.getDate() + wi * 7 + di);
+  return d;
+}
+function fmtDate(d) { return d.getDate() + ' ' + MONTHS_PT[d.getMonth()]; }
+function isSameDay(a, b) {
+  return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+}
+function isPastDay(d) {
+  const t = new Date(TODAY_DATE); t.setHours(0,0,0,0);
+  const c = new Date(d); c.setHours(0,0,0,0);
+  return c < t;
+}
+
+function nutHtml(type, desc) {
+  const key = getNutKey(type, desc);
+  const n = NUT[key];
+  if (!n || type === 'rest') {
+    return `<div class="nut-rest-note">😴 Dia de descanso. Proteína não é opcional — mantenha a meta mesmo sem treino. Creatina 5g no jantar · Magnésio 300mg na ceia.</div>`;
+  }
+  let html = '';
+  if (n.pre)   html += `<div class="nut-row pre"><span class="nut-label">Pré</span><div class="nut-items">${n.pre.join('<br>')}</div></div>`;
+  if (n.intra) html += `<div class="nut-row intra"><span class="nut-label">Intra</span><div class="nut-items">${n.intra.join('<br>')}</div></div>`;
+  if (n.post)  html += `<div class="nut-row post"><span class="nut-label">Pós</span><div class="nut-items">${n.post.join('<br>')}</div></div>`;
+  return html;
+}
+
+function findTodayData() {
+  for (let wi = 0; wi < WEEKS.length; wi++) {
+    for (let di = 0; di < 7; di++) {
+      if (isSameDay(getDate(wi, di), TODAY_DATE)) return {wi, di, wk: WEEKS[wi], day: WEEKS[wi].days[di]};
+    }
+  }
+  return null;
+}
+
+let todayNutOpen = false;
+function toggleTodayNut() {
+  todayNutOpen = !todayNutOpen;
+  const el = document.getElementById('today-nut-panel');
+  const btn = document.getElementById('today-nut-btn');
+  if (el) el.classList.toggle('hidden', !todayNutOpen);
+  if (btn) btn.textContent = todayNutOpen ? 'Fechar' : 'Ver nutrição';
+}
+
+function renderTodayHero() {
+  const td = findTodayData();
+  const hero = document.getElementById('today-hero');
+  if (!td) { hero.innerHTML = ''; return; }
+  const {wi, di, wk, day} = td;
+  const ph = PHASES.find(p => p.id === wk.ph);
+  const tm = TYPE_META[day.t] || TYPE_META.rest;
+  const key = `${wi}-${di}`;
+  const isDone = doneSet.has(key);
+  hero.innerHTML = `
+    <div class="today-hero-header">
+      <span class="today-badge">HOJE</span>
+      <span class="today-date">${DAY_NAMES_PT[di]}, ${fmtDate(TODAY_DATE)} · S${wk.w} · ${ph.n}</span>
+      ${isDone ? '<span class="today-done-badge">✅ Concluído</span>' : ''}
+    </div>
+    <div class="today-sport-row">
+      <div class="today-sport-icon">${tm.ic}</div>
+      <div class="today-sport-info">
+        <div class="today-sport-name">${tm.name}</div>
+        <div class="today-sport-desc">${day.c}</div>
+      </div>
+      <button class="today-toggle-btn" id="today-nut-btn" onclick="toggleTodayNut()">Ver nutrição</button>
+    </div>
+    <div style="padding:10px 14px 4px;display:flex;gap:8px;align-items:center">
+      <button class="done-btn ${isDone ? 'marked' : 'mark'}" onclick="toggleDone(${wi},${di},event)">
+        ${isDone ? '✓ Treino concluído' : 'Marcar como feito'}
+      </button>
+      ${isDone ? '' : '<span style="font-size:11px;color:var(--color-text-tertiary)">Marque após terminar o treino</span>'}
+    </div>
+    <div class="today-nut hidden" id="today-nut-panel">
+      ${nutHtml(day.t, day.c)}
+    </div>
+  `;
+}
+
+let activePhase = 0;
+function renderPhasePills() {
+  const container = document.getElementById('phase-pills');
+  let html = `<button class="phase-pill active" style="background:#185FA5;color:white" data-ph="0" onclick="filterPhase(0)">Todas</button>`;
+  PHASES.forEach(p => {
+    html += `<button class="phase-pill" data-ph="${p.id}" onclick="filterPhase(${p.id})">${p.n}</button>`;
+  });
+  container.innerHTML = html;
+}
+function filterPhase(ph) {
+  activePhase = ph;
+  document.querySelectorAll('.phase-pill').forEach(b => {
+    const bph = parseInt(b.dataset.ph);
+    const ph2 = PHASES.find(p => p.id === bph);
+    const isActive = bph === ph;
+    b.classList.toggle('active', isActive);
+    b.style.background = isActive ? (ph2 ? ph2.c : '#185FA5') : '';
+    b.style.color = isActive ? 'white' : '';
+  });
+  renderWeekList();
+}
+
+const openDays = new Set();
+let openWeek = null;
+function toggleWeek(wi) {
+  openWeek = openWeek === wi ? null : wi;
+  openDays.clear();
+  renderWeekList();
+}
+function toggleDay(wi, di) {
+  const key = `${wi}-${di}`;
+  const wasOpen = openDays.has(key);
+  openDays.clear();
+  if (!wasOpen) openDays.add(key);
+  renderWeekList();
+}
+
+function renderWeekList() {
+  const container = document.getElementById('train-week-list');
+  const weeks = activePhase === 0 ? WEEKS : WEEKS.filter(w => w.ph === activePhase);
+  container.innerHTML = weeks.map(wk => {
+    const wi = wk.w - 1;
+    const ph = PHASES.find(p => p.id === wk.ph);
+    const isOpen = openWeek === wi;
+    const isRec = wk.rec;
+    const isRace = wk.w === 25;
+    let totHtml = '';
+    if (wk.tot.sw !== '—') totHtml += `<span class="ts" style="background:var(--sw);color:var(--sc)">🏊 ${wk.tot.sw}</span>`;
+    if (wk.tot.bk !== '—') totHtml += `<span class="ts" style="background:var(--bw);color:var(--bc)">🚴 ${wk.tot.bk}</span>`;
+    if (wk.tot.rn !== '—') totHtml += `<span class="ts" style="background:var(--rn);color:var(--rc)">🏃 ${wk.tot.rn}</span>`;
+    if (wk.tot.gm && wk.tot.gm !== '—') totHtml += `<span class="ts" style="background:var(--gm);color:var(--gc)">💪 ${wk.tot.gm}</span>`;
+    const weekStart = getDate(wi, 0);
+    const weekEnd   = getDate(wi, 6);
+    const dateRange = `${fmtDate(weekStart)} – ${fmtDate(weekEnd)}`;
+    const hdrClass  = isRace ? 'is-race' : isRec ? 'is-rec' : '';
+    let daysHtml = '';
+    if (isOpen) {
+      wk.days.forEach((day, di) => {
+        const dayDate   = getDate(wi, di);
+        const isToday   = isSameDay(dayDate, TODAY_DATE);
+        const isPast    = isPastDay(dayDate);
+        const key       = `${wi}-${di}`;
+        const isDone    = doneSet.has(key);
+        const isOverdue = isPast && !isDone && !isToday;
+        const isExpanded = openDays.has(key);
+        const tm = TYPE_META[day.t] || TYPE_META.rest;
+        let classes = 'train-day';
+        if (isDone)         classes += ' done';
+        else if (isToday)   classes += ' is-today';
+        else if (isOverdue) classes += ' overdue';
+        let actionHtml = '';
+        if (isToday) {
+          actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓ Feito' : 'Marcar feito'}</button>`;
+        } else if (isPast) {
+          actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'overdue-mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓' : '⚠'}</button>`;
+        }
+        daysHtml += `
+          <div class="${classes}">
+            <div class="train-day-header" onclick="toggleDay(${wi}, ${di})">
+              <div class="train-day-date">${DAY_NAMES_PT[di].slice(0,3)}<br>${fmtDate(dayDate)}</div>
+              <div class="train-day-icon-wrap" style="background:${tm.bg}">${tm.ic}</div>
+              <div class="train-day-info">
+                <div class="train-day-name">${tm.name}</div>
+                <div class="train-day-desc">${day.c}</div>
+              </div>
+              <div class="train-day-right">
+                ${actionHtml}
+                <span class="day-nut-toggle" style="transform:rotate(${isExpanded?180:0}deg)">▼</span>
+              </div>
+            </div>
+            <div class="train-day-nut ${isExpanded ? '' : 'hidden'}">
+              ${nutHtml(day.t, day.c)}
+            </div>
+          </div>`;
+      });
+    }
+    return `
+      <div class="week-item" style="border-left-color:${ph.c}">
+        <div class="week-header ${hdrClass}" onclick="toggleWeek(${wi})">
+          <span class="week-num-badge" style="background:${ph.c}">S${wk.w}</span>
+          <div class="week-meta">
+            <div class="week-title">${isRace ? '🏁 ' : ''}${dateRange}</div>
+            <div class="week-sub">📍 ${wk.loc} · ${ph.n}</div>
+          </div>
+          <div class="week-totals">${totHtml}</div>
+          <span class="week-chevron" style="transform:rotate(${isOpen?180:0}deg)">▼</span>
+        </div>
+        <div class="week-foc">🎯 ${wk.foc}</div>
+        ${isOpen ? `<div class="week-days">${daysHtml}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+renderPhasePills();
+renderHeader();
+renderTodayHero();
+renderWeekList();
+loadDone();
