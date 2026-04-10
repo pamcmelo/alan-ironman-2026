@@ -18,7 +18,6 @@
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
   --font-sans: system-ui, -apple-system, sans-serif;
-
   --sw:#E6F1FB; --sc:#0C447C;
   --bw:#FAEEDA; --bc:#633806;
   --rn:#EAF3DE; --rc:#27500A;
@@ -125,7 +124,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .alert-text b { font-weight: 500; }
 
 /* ===== TRAINING TAB STYLES ===== */
-
 .train-progress-bar { margin-bottom: 1.25rem; }
 .tpb-track { height: 4px; background: var(--color-border-tertiary); border-radius: 2px; margin-bottom: 8px; }
 .tpb-fill { height: 4px; border-radius: 2px; background: #185FA5; transition: width 0.4s; }
@@ -133,7 +131,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .tpb-left { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
 .tpb-right { font-size: 11px; color: var(--color-text-tertiary); }
 
-/* Today hero */
 .today-hero { border: 1.5px solid #185FA5; border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.25rem; background: var(--color-background-primary); }
 .today-hero-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #E6F1FB; border-bottom: 0.5px solid rgba(24,95,165,0.2); }
 @media (prefers-color-scheme: dark) { .today-hero-header { background: #042C53; } }
@@ -165,16 +162,13 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .nut-row.post .nut-items { color: var(--bc); }
 .nut-rest-note { font-size: 12px; color: var(--color-text-secondary); padding: 10px 14px; line-height: 1.6; }
 
-/* Knee protocol reminder */
 .knee-reminder { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; background: var(--bw); border-left: 2px solid var(--bc); font-size: 11px; color: var(--bc); line-height: 1.6; margin-bottom: 1.25rem; }
 .knee-reminder b { font-weight: 500; }
 
-/* Phase filter */
 .phase-pills { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 1rem; }
 .phase-pill { font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); background: transparent; color: var(--color-text-secondary); cursor: pointer; font-family: inherit; transition: all 0.15s; }
 .phase-pill.active { color: white; border-color: transparent; }
 
-/* Week accordion */
 .week-item { border: 0.5px solid var(--color-border-tertiary); border-left-width: 3px; border-radius: var(--border-radius-lg); margin-bottom: 8px; overflow: hidden; background: var(--color-background-primary); }
 .week-header { display: flex; align-items: center; gap: 10px; padding: 11px 14px; cursor: pointer; user-select: none; background: var(--color-background-secondary); }
 .week-header.is-rec { background: var(--color-background-tertiary); }
@@ -192,23 +186,46 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 
 /* Day row in week */
 .train-day { border-radius: 8px; overflow: hidden; }
-.train-day-header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; transition: background 0.12s; }
-.train-day.done .train-day-header { opacity: 0.6; }
-.train-day.is-today .train-day-header { background: rgba(24,95,165,0.06); border-radius: 8px; }
+.train-day-header { display: flex; align-items: center; gap: 8px; padding: 8px 10px; cursor: pointer; transition: background 0.12s; border-radius: 8px; }
+
+/* DONE: subtle green tint + opacity */
+.train-day.done .train-day-header { opacity: 0.55; background: rgba(99,153,34,0.06); }
+
+/* TODAY: strong blue highlight */
+.train-day.is-today .train-day-header { background: rgba(24,95,165,0.1); border: 1.5px solid #185FA5; border-radius: 8px; }
+@media (prefers-color-scheme: dark) { .train-day.is-today .train-day-header { background: rgba(24,95,165,0.18); border-color: #378ADD; } }
+
+/* OVERDUE: orange warning */
+.train-day.overdue .train-day-header { background: rgba(239,159,39,0.1); border: 1px solid #EF9F27; border-radius: 8px; }
+@media (prefers-color-scheme: dark) { .train-day.overdue .train-day-header { background: rgba(239,159,39,0.12); border-color: #854F0B; } }
+
 .train-day-date { font-size: 10px; font-weight: 500; color: var(--color-text-tertiary); min-width: 38px; flex-shrink: 0; line-height: 1.3; }
-.train-day.is-today .train-day-date { color: #185FA5; font-weight: 600; }
+.train-day.is-today .train-day-date { color: #185FA5; font-weight: 700; }
+.train-day.overdue .train-day-date { color: #854F0B; }
+@media (prefers-color-scheme: dark) { .train-day.overdue .train-day-date { color: #FAC775; } }
 .train-day-icon-wrap { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
 .train-day-info { flex: 1; min-width: 0; }
 .train-day-name { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
-.train-day-desc { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 260px; }
+.train-day-desc { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px; }
 .train-day-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-.done-check { font-size: 13px; color: #639922; }
-.today-dot { width: 6px; height: 6px; border-radius: 50%; background: #185FA5; flex-shrink: 0; }
 .day-nut-toggle { font-size: 10px; color: var(--color-text-tertiary); transition: transform 0.2s; }
 .train-day-nut { padding: 4px 10px 10px 10px; display: flex; flex-direction: column; gap: 6px; }
 .train-day-nut.hidden { display: none; }
 
-/* Totals in week header */
+/* Done / overdue buttons */
+.done-btn { font-size: 10px; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: none; cursor: pointer; font-family: inherit; white-space: nowrap; transition: opacity 0.15s; }
+.done-btn.mark { background: #EAF3DE; color: #27500A; border: 1px solid #639922; }
+.done-btn.marked { background: #639922; color: white; }
+.done-btn.overdue-mark { background: #FAEEDA; color: #633806; border: 1px solid #EF9F27; }
+@media (prefers-color-scheme: dark) {
+  .done-btn.mark { background: #173404; color: #C0DD97; border-color: #27500A; }
+  .done-btn.marked { background: #27500A; color: #C0DD97; }
+  .done-btn.overdue-mark { background: #412402; color: #FAC775; border-color: #854F0B; }
+}
+
+/* Sync indicator */
+.sync-status { font-size: 10px; color: var(--color-text-tertiary); text-align: right; margin-bottom: 8px; min-height: 14px; }
+
 .ts { font-size: 10px; font-weight: 500; padding: 2px 6px; border-radius: 8px; }
 </style>
 </head>
@@ -306,25 +323,31 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 
   <!-- ===== TREINAMENTO TAB ===== -->
   <div id="tab-treino" class="tab-content">
+    <div class="sync-status" id="sync-status">Carregando progresso…</div>
 
-    <!-- Knee protocol -->
+    <div class="train-progress-bar">
+      <div class="tpb-track"><div class="tpb-fill" id="tpb-fill" style="width:0%"></div></div>
+      <div class="tpb-labels">
+        <span class="tpb-left" id="tpb-label">—</span>
+        <span class="tpb-right" id="tpb-days">—</span>
+      </div>
+    </div>
+
+    <div class="today-hero" id="today-hero"></div>
+
     <div class="knee-reminder">
       <span style="font-size:16px;flex-shrink:0">🦵</span>
       <div><b>Protocolo joelho — todo dia sem exceção:</b> Rolo de espuma na banda IT 60s cada lado · Abdução lateral com elástico 3×15 · Agachamento unilateral assistido 3×8</div>
     </div>
 
-    <!-- Phase filter -->
     <div class="section-label">Filtrar por fase</div>
     <div class="phase-pills" id="phase-pills"></div>
-
-    <!-- Week list -->
     <div id="train-week-list"></div>
-
   </div>
 </div>
 
 <script>
-/* ===== ALIMENTAÇÃO TAB DATA ===== */
+/* ===== ALIMENTAÇÃO ===== */
 const D = [
   { label:"Descanso", kcal:2450, range:"2.400 – 2.500 kcal", ptn:160, cho:265, fat:75, ptnS:"2,6 g/kg massa magra", choS:"4,2 g/kg massa magra", fatS:"1,2 g/kg massa magra",
     mfp:[{m:"Café da manhã",d:"Refeição completa — sem pressão de pré-treino."},{m:"Almoço",d:"Proteína + carboidrato complexo + gordura boa. Maior refeição do dia."},{m:"Lanche",d:"Fruta + fonte de proteína leve (iogurte, ovo, whey)."},{m:"Jantar",d:"Proteína magra + carboidrato moderado + legumes. Incluir creatina 5g."},{m:"Ceia",d:"Iogurte grego + granola + mel + ômega-3 + magnésio 300mg."}]},
@@ -381,14 +404,66 @@ function switchTab(t) {
 }
 sel(0);
 
-/* ===== TRAINING TAB DATA & LOGIC ===== */
+/* ===== TRAINING ===== */
 
-const TODAY_DATE = new Date(2026, 3, 6); // April 6 2026
-const PLAN_START = new Date(2026, 2, 30); // March 30 2026
-const RACE_DATE = new Date(2026, 8, 20); // September 20 2026
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwQ_YulNwOsIyA5GxSYyjnO9qaFEj2ndCOgpNRZyuuKX53Qh0fTjJ_zAA1DHZDHWEOTw/exec';
 
-const MONTHS_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const TODAY_DATE = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+const PLAN_START = new Date(2026, 2, 30);
+const RACE_DATE  = new Date(2026, 8, 20);
+const MONTHS_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DAY_NAMES_PT = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+
+let doneSet = new Set();
+
+async function loadDone() {
+  setSyncStatus('Carregando progresso…');
+  try {
+    const res = await fetch(APPS_SCRIPT_URL);
+    const data = await res.json();
+    if (data.status === 'ok') {
+      doneSet = new Set(data.done);
+      setSyncStatus('Sincronizado ✓');
+    } else {
+      setSyncStatus('Erro ao carregar — dados locais');
+    }
+  } catch(e) {
+    setSyncStatus('Sem conexão — dados locais');
+  }
+  renderTodayHero();
+  renderWeekList();
+  setTimeout(() => setSyncStatus(''), 3000);
+}
+
+async function toggleDone(wi, di, ev) {
+  ev.stopPropagation();
+  const key = `${wi}-${di}`;
+  const adding = !doneSet.has(key);
+  if (adding) doneSet.add(key); else doneSet.delete(key);
+  renderWeekList();
+  renderTodayHero();
+  setSyncStatus('Salvando…');
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'toggle', key })
+    });
+    const data = await res.json();
+    if (data.status === 'added') doneSet.add(key);
+    else if (data.status === 'removed') doneSet.delete(key);
+    renderWeekList();
+    renderTodayHero();
+    setSyncStatus('Salvo ✓');
+  } catch(e) {
+    setSyncStatus('Falha ao salvar — tente novamente');
+  }
+  setTimeout(() => setSyncStatus(''), 3000);
+}
+
+function setSyncStatus(msg) {
+  const el = document.getElementById('sync-status');
+  if (el) el.textContent = msg;
+}
 
 const PHASES = [
   {id:1, n:"Fase 1", s:"Base terrestre", c:"#0F6E56"},
@@ -400,63 +475,62 @@ const PHASES = [
   {id:7, n:"Fase 7", s:"Prova!", c:"#3B6D11"},
 ];
 
-// Nutrition lookup: pre/intra/post per activity type
 const NUT = {
   rest: { pre: null, intra: null, post: null },
   'run-short': {
-    pre:   ['Banana madura + mel 1 col. · Café preto 80–150mg cafeína', '200–300ml água temperatura ambiente'],
-    intra: ['Apenas água quando disponível', 'Sem gel em sessões < 70min'],
-    post:  ['Whey 30g + fruta (banana, laranja, mamão)', 'Refeição em 60min: proteína magra + CHO complexo']
+    pre:   ['Banana madura + mel 1 col. · Café preto 80–150mg cafeína','200–300ml água temperatura ambiente'],
+    intra: ['Apenas água quando disponível','Sem gel em sessões < 70min'],
+    post:  ['Whey 30g + fruta (banana, laranja, mamão)','Refeição em 60min: proteína magra + CHO complexo']
   },
   'run-long': {
-    pre:   ['Aveia 80g + banana + mel + café · 400–500ml água com eletrólito', 'Opcional: 1 gel 15min antes do início'],
-    intra: ['1 gel (30–40g CHO) a cada 40–45min · 500–700ml água/hora', 'Cozumel/Playa: sempre 700ml/h (umidade 70–85%)', 'Se >2h: gel com sódio 200–300mg/gel'],
-    post:  ['Whey 40g + banana + sal (1/4 col. chá) · Imediato (0–30min)', 'Batata-doce 250g + frango 180g + legumes em 60min', 'Água de coco 600ml — eletrólitos naturais']
+    pre:   ['Aveia 80g + banana + mel + café · 400–500ml água com eletrólito','Opcional: 1 gel 15min antes do início'],
+    intra: ['1 gel (30–40g CHO) a cada 40–45min · 500–700ml água/hora','Cozumel/Playa: sempre 700ml/h (umidade 70–85%)','Se >2h: gel com sódio 200–300mg/gel'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · Imediato (0–30min)','Batata-doce 250g + frango 180g + legumes em 60min','Água de coco 600ml — eletrólitos naturais']
   },
   'bike-short': {
-    pre:   ['Aveia 80g + banana + mel + café · Evitar fibras em excesso', '400ml água + pitada de sal · Café 200mg 45–60min antes'],
-    intra: ['500–700ml água/hora · Clima tropical: sempre 700ml/h', 'Gel (30–40g CHO) se treino ultrapassar 90min'],
-    post:  ['Whey 30g + banana · Janela 30min', 'Arroz 150g + frango 150g + azeite em 60min · Urina amarelo-palha = ok']
+    pre:   ['Aveia 80g + banana + mel + café · Evitar fibras em excesso','400ml água + pitada de sal · Café 200mg 45–60min antes'],
+    intra: ['500–700ml água/hora · Clima tropical: sempre 700ml/h','Gel (30–40g CHO) se treino ultrapassar 90min'],
+    post:  ['Whey 30g + banana · Janela 30min','Arroz 150g + frango 150g + azeite em 60min']
   },
   'bike-long': {
-    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal', '30min antes: 1 gel + 300ml água + cápsula eletrólito completo', '⚠️ Esta combinação = IDÊNTICA ao café da manhã da prova — teste e valide'],
-    intra: ['1 gel (30–40g CHO) a cada 40–45min · 4–6 géis total', '600–750ml água/hora · 500–1.000mg sódio/hora', 'Objetivo CHO: 60–80g/hora para poupar glicogênio'],
-    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min', 'Arroz 250g + frango/peixe 180g + legumes em 60min', 'Isotônico 600–800ml nas 2h seguintes · Metabolismo segue 2–4h']
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal','30min antes: 1 gel + 300ml água + cápsula eletrólito completo','⚠️ Esta combinação = IDÊNTICA ao café da manhã da prova — teste e valide'],
+    intra: ['1 gel (30–40g CHO) a cada 40–45min · 4–6 géis total','600–750ml água/hora · 500–1.000mg sódio/hora','Objetivo CHO: 60–80g/hora para poupar glicogênio'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min','Arroz 250g + frango/peixe 180g + legumes em 60min','Isotônico 600–800ml nas 2h seguintes']
   },
   swim: {
-    pre:   ['Banana média + café preto 80mg cafeína', '200–300ml água temperatura ambiente', 'Em jejum matinal: banana + café é suficiente para < 60min'],
-    intra: ['Sessões até 60min: apenas água', 'Sessões acima de 60min: isotônico 200ml a cada parada técnica'],
-    post:  ['Whey 30g + leite desnatado 200ml ou água', 'Fruta de rápida absorção: banana, mamão ou manga (30–40g CHO)', 'Refeição completa em até 60min']
+    pre:   ['Banana média + café preto 80mg cafeína','200–300ml água temperatura ambiente'],
+    intra: ['Sessões até 60min: apenas água','Sessões acima de 60min: isotônico 200ml a cada parada técnica'],
+    post:  ['Whey 30g + leite desnatado 200ml ou água','Fruta de rápida absorção: banana, mamão ou manga (30–40g CHO)','Refeição completa em até 60min']
   },
   gym: {
-    pre:   ['Opção A (rápido): Whey 20g + banana + café preto', 'Opção B (refeição): 2 ovos mexidos + tapioca 60g + café', 'Cafeína 200mg — 45–60min antes para absorção ótima'],
-    intra: ['400–600ml água na sessão', 'Carboidrato intra desnecessário em sessões de 60–70min de força'],
-    post:  ['Whey 30g + banana · Janela 30min (fundamental para fases 1–2)', 'Refeição em 60min: proteína + CHO complexo + gordura boa']
+    pre:   ['Opção A (rápido): Whey 20g + banana + café preto','Opção B (refeição): 2 ovos mexidos + tapioca 60g + café','Cafeína 200mg — 45–60min antes'],
+    intra: ['400–600ml água na sessão','Carboidrato intra desnecessário em sessões de 60–70min de força'],
+    post:  ['Whey 30g + banana · Janela 30min (fundamental para fases 1–2)','Refeição em 60min: proteína + CHO complexo + gordura boa']
   },
   'run+gym': {
-    pre:   ['Banana + café preto (serve para os dois treinos)', '200–300ml água'],
-    intra: ['Apenas água nos dois treinos', 'Duração individual não justifica gel'],
-    post:  ['Janela única após o último treino: Whey 30g + banana', 'Refeição completa em 60min — dia de volume alto, não corte']
+    pre:   ['Banana + café preto (serve para os dois treinos)','200–300ml água'],
+    intra: ['Apenas água nos dois treinos','Duração individual não justifica gel'],
+    post:  ['Janela única após o último treino: Whey 30g + banana','Refeição completa em 60min — dia de volume alto, não corte']
   },
   'swim+gym': {
-    pre:   ['Whey 20g + banana + café', 'Ou 2 ovos + tapioca 60g se musculação vier primeiro'],
-    intra: ['Apenas água nos dois treinos', 'Durações individuais não exigem suplementação intra'],
-    post:  ['Whey 30g + fruta após o último treino · Janela 30min', 'Proteína alta é a prioridade — saldo vai para almoço, lanche e jantar']
+    pre:   ['Whey 20g + banana + café','Ou 2 ovos + tapioca 60g se musculação vier primeiro'],
+    intra: ['Apenas água nos dois treinos','Durações individuais não exigem suplementação intra'],
+    post:  ['Whey 30g + fruta após o último treino · Janela 30min','Proteína alta é a prioridade — saldo vai para almoço, lanche e jantar']
   },
   'brick-std': {
-    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho', '30min antes: 1 gel + 400ml água + cápsula eletrólito completo', 'Café 200mg · Tratar o pré-brick como dia de prova desde a sem. 14'],
-    intra: ['🚴 Bike: 1 gel a cada 45min (3–4 géis) · 700ml água/hora', '⚡ T2: 1 gel rápido + gole de água (máx 90 segundos na transição)', '🏃 Corrida: 1 gel a cada 40min se >8km + água em todos os postos'],
-    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min', 'Arroz 250g + proteína 200g em 60min', 'Isotônico 1–1,5L nas 2h · Pular pós-brick impacta o próximo treino']
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho','30min antes: 1 gel + 400ml água + cápsula eletrólito completo','Café 200mg · Tratar o pré-brick como dia de prova desde a sem. 14'],
+    intra: ['🚴 Bike: 1 gel a cada 45min (3–4 géis) · 700ml água/hora','⚡ T2: 1 gel rápido + gole de água (máx 90 segundos na transição)','🏃 Corrida: 1 gel a cada 40min se >8km + água em todos os postos'],
+    post:  ['Whey 40g + banana + sal (1/4 col. chá) · 0–30min','Arroz 250g + proteína 200g em 60min','Isotônico 1–1,5L nas 2h · Pular pós-brick impacta o próximo treino']
   },
   'brick-long': {
-    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho', '30min antes: 1 gel + 400ml água + eletrólito completo'],
-    intra: ['🚴 Bike: 1 gel a cada 40–45min (4–6 géis) · 700ml água/hora', '⚡ T2: 1 gel rápido · 🏃 Corrida: 1 gel a cada 40min', 'Meta CHO: 60–80g/hora ao longo de todo o treino'],
-    post:  ['Whey 40g + banana + sal · 0–30min', 'Duas refeições completas pós-brick são obrigatórias', 'Iogurte grego 200g + granola 50g + mel ~ 3h após se necessário']
+    pre:   ['2–3h antes: arroz 250g + frango 150g + azeite + sal marinho','30min antes: 1 gel + 400ml água + eletrólito completo'],
+    intra: ['🚴 Bike: 1 gel a cada 40–45min (4–6 géis) · 700ml água/hora','⚡ T2: 1 gel rápido · 🏃 Corrida: 1 gel a cada 40min','Meta CHO: 60–80g/hora ao longo de todo o treino'],
+    post:  ['Whey 40g + banana + sal · 0–30min','Duas refeições completas pós-brick são obrigatórias','Iogurte grego 200g + granola 50g + mel ~ 3h após se necessário']
   },
   'brick-race': {
-    pre:   ['04:30: Aveia 100g + 2 bananas + mel 2 col. + café + sal', '06:00–06:30: 2 géis + 500ml água + cápsula eletrólito', 'Tratar como dia de prova real — sem nada novo'],
-    intra: ['6–8 géis ao longo do treino completo · Registre cada um', '🚴 Bike: gel a cada 40min + isotônico | ⚡ T2: gel rápido | 🏃 Corrida: gel a cada 40min', 'Água em todos os postos — nunca pular'],
-    post:  ['Whey 40g + banana + isotônico 600ml · 0–30min', 'Duas refeições completas obrigatórias', 'Metabolismo segue elevado por horas — não pule']
+    pre:   ['04:30: Aveia 100g + 2 bananas + mel 2 col. + café + sal','06:00–06:30: 2 géis + 500ml água + cápsula eletrólito','Tratar como dia de prova real — sem nada novo'],
+    intra: ['6–8 géis ao longo do treino completo · Registre cada um','🚴 Bike: gel a cada 40min + isotônico | ⚡ T2: gel rápido | 🏃 Corrida: gel a cada 40min','Água em todos os postos — nunca pular'],
+    post:  ['Whey 40g + banana + isotônico 600ml · 0–30min','Duas refeições completas obrigatórias','Metabolismo segue elevado por horas — não pule']
   }
 };
 
@@ -469,7 +543,7 @@ function getNutKey(type, desc) {
   if (type === 'swim') return 'swim';
   if (type === 'brick') {
     if (d.includes('simulado') || d.includes('completo')) return 'brick-race';
-    const m = d.match(/corrida\s+(\d+)/i);
+    const m = d.match(/corrida\s*(\d+)/i);
     if (m && parseInt(m[1]) >= 14) return 'brick-long';
     return 'brick-std';
   }
@@ -480,7 +554,7 @@ function getNutKey(type, desc) {
   if (type === 'run') {
     const m = d.match(/(\d+)\s*km/i);
     const km = m ? parseInt(m[1]) : 0;
-    if (km >= 14 || d.includes('maratona') || d.includes('longão') || d.includes('21km') || d.includes('21 km')) return 'run-long';
+    if (km >= 14 || d.includes('maratona') || d.includes('21km') || d.includes('21 km')) return 'run-long';
     return 'run-short';
   }
   return 'rest';
@@ -497,7 +571,6 @@ const TYPE_META = {
   'swim+gym':{ic:'🏊', bg:'var(--sw)', tc:'var(--sc)', name:'Natação + Musculação'},
 };
 
-// Full 25-week training data (days in Mon–Sun order)
 const WEEKS = [
   {w:1,ph:1,loc:"Cidade atual",foc:"Entrada suave. Ativar glúteo médio. Protocolo joelho todo dia.",rec:false,
    tot:{sw:"—",bk:"100km",rn:"20km",gm:"3×"},
@@ -777,34 +850,32 @@ const WEEKS = [
 ];
 
 /* ===== HELPERS ===== */
-function getDate(weekIdx, dayIdx) {
+function getDate(wi, di) {
   const d = new Date(PLAN_START);
-  d.setDate(d.getDate() + weekIdx * 7 + dayIdx);
+  d.setDate(d.getDate() + wi * 7 + di);
   return d;
 }
-function fmtDate(d) {
-  return d.getDate() + ' ' + MONTHS_PT[d.getMonth()];
-}
+function fmtDate(d) { return d.getDate() + ' ' + MONTHS_PT[d.getMonth()]; }
 function isSameDay(a, b) {
   return a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
 }
-function isPast(d) {
+function isPastDay(d) {
   const t = new Date(TODAY_DATE); t.setHours(0,0,0,0);
   const c = new Date(d); c.setHours(0,0,0,0);
   return c < t;
 }
 
-/* ===== NUTRITION HTML ===== */
-function nutHtml(type, desc, inline) {
+/* ===== NUT HTML ===== */
+function nutHtml(type, desc) {
   const key = getNutKey(type, desc);
   const n = NUT[key];
   if (!n || type === 'rest') {
     return `<div class="nut-rest-note">😴 Dia de descanso. Proteína não é opcional — mantenha a meta mesmo sem treino. Creatina 5g no jantar · Magnésio 300mg na ceia.</div>`;
   }
   let html = '';
-  if (n.pre) html += `<div class="nut-row pre"><span class="nut-label">Pré</span><div class="nut-items">${n.pre.join('<br>')}</div></div>`;
+  if (n.pre)   html += `<div class="nut-row pre"><span class="nut-label">Pré</span><div class="nut-items">${n.pre.join('<br>')}</div></div>`;
   if (n.intra) html += `<div class="nut-row intra"><span class="nut-label">Intra</span><div class="nut-items">${n.intra.join('<br>')}</div></div>`;
-  if (n.post) html += `<div class="nut-row post"><span class="nut-label">Pós</span><div class="nut-items">${n.post.join('<br>')}</div></div>`;
+  if (n.post)  html += `<div class="nut-row post"><span class="nut-label">Pós</span><div class="nut-items">${n.post.join('<br>')}</div></div>`;
   return html;
 }
 
@@ -812,8 +883,7 @@ function nutHtml(type, desc, inline) {
 function findTodayData() {
   for (let wi = 0; wi < WEEKS.length; wi++) {
     for (let di = 0; di < 7; di++) {
-      const d = getDate(wi, di);
-      if (isSameDay(d, TODAY_DATE)) return {wi, di, wk: WEEKS[wi], day: WEEKS[wi].days[di]};
+      if (isSameDay(getDate(wi, di), TODAY_DATE)) return {wi, di, wk: WEEKS[wi], day: WEEKS[wi].days[di]};
     }
   }
   return null;
@@ -830,25 +900,26 @@ function toggleTodayNut() {
 
 function renderTodayHero() {
   const td = findTodayData();
-  if (!td) return;
-  const {wk, day} = td;
+  const hero = document.getElementById('today-hero');
+  if (!td) { hero.innerHTML = ''; return; }
+  const {wi, di, wk, day} = td;
   const ph = PHASES.find(p => p.id === wk.ph);
   const tm = TYPE_META[day.t] || TYPE_META.rest;
+  const key = `${wi}-${di}`;
+  const isDone = doneSet.has(key);
   const daysToRace = Math.ceil((RACE_DATE - TODAY_DATE) / 86400000);
-
-  // Progress bar
   const totalDays = Math.ceil((RACE_DATE - PLAN_START) / 86400000);
   const elapsed = Math.ceil((TODAY_DATE - PLAN_START) / 86400000);
   const pct = Math.round(Math.min(100, (elapsed/totalDays)*100));
   document.getElementById('tpb-fill').style.width = pct + '%';
   document.getElementById('tpb-label').textContent = `Semana ${wk.w} de 25 · ${ph.n}: ${ph.s}`;
   document.getElementById('tpb-days').textContent = `${daysToRace} dias para a prova 🏁`;
-
-  document.getElementById('today-hero').innerHTML = `
+  const dayName = DAY_NAMES_PT[di];
+  hero.innerHTML = `
     <div class="today-hero-header">
       <span class="today-badge">HOJE</span>
-      <span class="today-date">${DAY_NAMES_PT[0]}, ${fmtDate(TODAY_DATE)} · S${wk.w}</span>
-      <span class="today-done-badge">✅ Concluído</span>
+      <span class="today-date">${dayName}, ${fmtDate(TODAY_DATE)} · S${wk.w}</span>
+      ${isDone ? '<span class="today-done-badge">✅ Concluído</span>' : ''}
     </div>
     <div class="today-sport-row">
       <div class="today-sport-icon">${tm.ic}</div>
@@ -858,8 +929,14 @@ function renderTodayHero() {
       </div>
       <button class="today-toggle-btn" id="today-nut-btn" onclick="toggleTodayNut()">Ver nutrição</button>
     </div>
+    <div style="padding:10px 14px 4px;display:flex;gap:8px;align-items:center">
+      <button class="done-btn ${isDone ? 'marked' : 'mark'}" onclick="toggleDone(${wi},${di},event)">
+        ${isDone ? '✓ Treino concluído' : 'Marcar como feito'}
+      </button>
+      ${isDone ? '' : '<span style="font-size:11px;color:var(--color-text-tertiary)">Marque após terminar o treino</span>'}
+    </div>
     <div class="today-nut hidden" id="today-nut-panel">
-      ${nutHtml(day.t, day.c, true)}
+      ${nutHtml(day.t, day.c)}
     </div>
   `;
 }
@@ -868,9 +945,9 @@ function renderTodayHero() {
 let activePhase = 0;
 function renderPhasePills() {
   const container = document.getElementById('phase-pills');
-  let html = `<button class="phase-pill active" style="background:#185FA5" data-ph="0" onclick="filterPhase(0)">Todas</button>`;
+  let html = `<button class="phase-pill active" style="background:#185FA5;color:white" data-ph="0" onclick="filterPhase(0)">Todas</button>`;
   PHASES.forEach(p => {
-    html += `<button class="phase-pill" data-ph="${p.id}" style="" onclick="filterPhase(${p.id})">${p.n}</button>`;
+    html += `<button class="phase-pill" data-ph="${p.id}" onclick="filterPhase(${p.id})">${p.n}</button>`;
   });
   container.innerHTML = html;
 }
@@ -898,7 +975,6 @@ function toggleWeek(wi) {
 }
 function toggleDay(wi, di) {
   const key = `${wi}-${di}`;
-  // Close any other open day in the same week, toggle this one
   const wasOpen = openDays.has(key);
   openDays.clear();
   if (!wasOpen) openDays.add(key);
@@ -908,47 +984,46 @@ function toggleDay(wi, di) {
 function renderWeekList() {
   const container = document.getElementById('train-week-list');
   const weeks = activePhase === 0 ? WEEKS : WEEKS.filter(w => w.ph === activePhase);
-
   container.innerHTML = weeks.map(wk => {
     const wi = wk.w - 1;
     const ph = PHASES.find(p => p.id === wk.ph);
     const isOpen = openWeek === wi;
     const isRec = wk.rec;
     const isRace = wk.w === 25;
-
-    // Totals pills
     let totHtml = '';
     if (wk.tot.sw !== '—') totHtml += `<span class="ts" style="background:var(--sw);color:var(--sc)">🏊 ${wk.tot.sw}</span>`;
     if (wk.tot.bk !== '—') totHtml += `<span class="ts" style="background:var(--bw);color:var(--bc)">🚴 ${wk.tot.bk}</span>`;
     if (wk.tot.rn !== '—') totHtml += `<span class="ts" style="background:var(--rn);color:var(--rc)">🏃 ${wk.tot.rn}</span>`;
     if (wk.tot.gm && wk.tot.gm !== '—') totHtml += `<span class="ts" style="background:var(--gm);color:var(--gc)">💪 ${wk.tot.gm}</span>`;
+    const weekStart = getDate(wi, 0);
+    const weekEnd   = getDate(wi, 6);
+    const dateRange = `${fmtDate(weekStart)} – ${fmtDate(weekEnd)}`;
+    const hdrClass  = isRace ? 'is-race' : isRec ? 'is-rec' : '';
 
-    const weekStartDate = getDate(wi, 0);
-    const weekEndDate = getDate(wi, 6);
-    const dateRange = `${fmtDate(weekStartDate)} – ${fmtDate(weekEndDate)}`;
-
-    const hdrClass = isRace ? 'is-race' : isRec ? 'is-rec' : '';
-
-    // Days
     let daysHtml = '';
     if (isOpen) {
       wk.days.forEach((day, di) => {
-        const dayDate = getDate(wi, di);
-        const isToday = isSameDay(dayDate, TODAY_DATE);
-        const isDone = isPast(dayDate);
-        const key = `${wi}-${di}`;
+        const dayDate  = getDate(wi, di);
+        const isToday  = isSameDay(dayDate, TODAY_DATE);
+        const isPast   = isPastDay(dayDate);
+        const key      = `${wi}-${di}`;
+        const isDone   = doneSet.has(key);
+        const isOverdue = isPast && !isDone && !isToday;
         const isExpanded = openDays.has(key);
         const tm = TYPE_META[day.t] || TYPE_META.rest;
 
         let classes = 'train-day';
-        if (isDone) classes += ' done';
-        if (isToday) classes += ' is-today';
+        if (isDone)    classes += ' done';
+        else if (isToday)   classes += ' is-today';
+        else if (isOverdue) classes += ' overdue';
 
-        const rightHtml = isToday
-          ? `<div class="today-dot"></div>`
-          : isDone
-          ? `<span class="done-check">✓</span>`
-          : '';
+        // Done button: show for past days and today
+        let actionHtml = '';
+        if (isToday) {
+          actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓ Feito' : 'Marcar feito'}</button>`;
+        } else if (isPast) {
+          actionHtml = `<button class="done-btn ${isDone ? 'marked' : 'overdue-mark'}" onclick="toggleDone(${wi},${di},event)">${isDone ? '✓' : '⚠'}</button>`;
+        }
 
         daysHtml += `
           <div class="${classes}">
@@ -960,12 +1035,12 @@ function renderWeekList() {
                 <div class="train-day-desc">${day.c}</div>
               </div>
               <div class="train-day-right">
-                ${rightHtml}
+                ${actionHtml}
                 <span class="day-nut-toggle" style="transform:rotate(${isExpanded?180:0}deg)">▼</span>
               </div>
             </div>
-            <div class="train-day-nut ${isExpanded?'':'hidden'}">
-              ${nutHtml(day.t, day.c, false)}
+            <div class="train-day-nut ${isExpanded ? '' : 'hidden'}">
+              ${nutHtml(day.t, day.c)}
             </div>
           </div>`;
       });
@@ -989,12 +1064,10 @@ function renderWeekList() {
 }
 
 /* ===== INIT ===== */
-function initTrainingTab() {
-  renderPhasePills();
-  renderWeekList();
-}
-
-initTrainingTab();
+renderPhasePills();
+renderWeekList();
+renderTodayHero();
+loadDone();
 </script>
 </body>
 </html>
