@@ -122,11 +122,8 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
   .alert-text.ok { color: #C0DD97; }
 }
 .alert-text b { font-weight: 500; }
-
 /* ===== TRAINING TAB STYLES ===== */
 .sync-status { font-size: 10px; color: var(--color-text-tertiary); text-align: right; margin-bottom: 8px; min-height: 14px; }
-
-/* Race countdown */
 .race-countdown { background: #EAF3DE; border: 1.5px solid #639922; border-radius: var(--border-radius-lg); padding: 16px 20px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 18px; }
 @media (prefers-color-scheme: dark) { .race-countdown { background: #173404; border-color: #27500A; } }
 .race-cd-num { font-size: 56px; font-weight: 700; color: #27500A; line-height: 1; flex-shrink: 0; letter-spacing: -2px; }
@@ -135,15 +132,12 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
 .race-cd-label { font-size: 14px; font-weight: 600; color: #27500A; margin-bottom: 3px; }
 .race-cd-sub { font-size: 11px; color: #3B6D11; line-height: 1.6; }
 @media (prefers-color-scheme: dark) { .race-cd-label { color: #C0DD97; } .race-cd-sub { color: #7FB85A; } }
-
-/* Progress bar */
 .train-progress-bar { margin-bottom: 1.25rem; }
 .tpb-track { height: 6px; background: var(--color-border-tertiary); border-radius: 3px; margin-bottom: 8px; }
 .tpb-fill { height: 6px; border-radius: 3px; background: #185FA5; transition: width 0.5s ease; }
 .tpb-labels { display: flex; justify-content: space-between; align-items: center; }
 .tpb-left { font-size: 12px; font-weight: 500; color: var(--color-text-primary); }
 .tpb-right { font-size: 11px; color: var(--color-text-tertiary); }
-
 .today-hero { border: 1.5px solid #185FA5; border-radius: var(--border-radius-lg); overflow: hidden; margin-bottom: 1.25rem; background: var(--color-background-primary); }
 .today-hero-header { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: #E6F1FB; border-bottom: 0.5px solid rgba(24,95,165,0.2); }
 @media (prefers-color-scheme: dark) { .today-hero-header { background: #042C53; } }
@@ -318,8 +312,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
   <!-- ===== TREINAMENTO TAB ===== -->
   <div id="tab-treino" class="tab-content">
     <div class="sync-status" id="sync-status">Carregando progresso…</div>
-
-    <!-- Race countdown -->
     <div class="race-countdown" id="race-countdown">
       <div class="race-cd-num" id="cd-num">—</div>
       <div class="race-cd-info">
@@ -327,8 +319,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
         <div class="race-cd-sub" id="cd-sub">IRONMAN 70.3 Cozumel · 20 Set 2026</div>
       </div>
     </div>
-
-    <!-- Progress bar (done-based) -->
     <div class="train-progress-bar">
       <div class="tpb-track"><div class="tpb-fill" id="tpb-fill" style="width:0%"></div></div>
       <div class="tpb-labels">
@@ -336,7 +326,6 @@ body { font-family: var(--font-sans); background: var(--color-background-tertiar
         <span class="tpb-right" id="tpb-right">—</span>
       </div>
     </div>
-
     <div class="today-hero" id="today-hero"></div>
     <div class="knee-reminder">
       <span style="font-size:16px;flex-shrink:0">🦵</span>
@@ -411,7 +400,7 @@ const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxwQ_YulNwOsIyA
 const TODAY_DATE = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
 const PLAN_START = new Date(2026, 2, 30);
 const RACE_DATE  = new Date(2026, 8, 20);
-const TOTAL_DAYS = 25 * 7; // 175 plan days
+const TOTAL_DAYS = 25 * 7;
 const MONTHS_PT   = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const DAY_NAMES_PT = ['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
 let doneSet = new Set();
@@ -436,6 +425,27 @@ async function loadDone() {
   setTimeout(() => setSyncStatus(''), 3000);
 }
 
+/* Extract run/bike/swim numbers from a day description */
+function extractMetrics(wi, di) {
+  const wk   = WEEKS[wi];
+  const desc = wk.days[di].c;
+  // Handles "1.200m" (BR thousand sep) and plain "600m"
+  const toNum = s => parseFloat(s.replace(/\./g, '').replace(',', '.')) || 0;
+
+  let run_km = 0, bike_km = 0, swim_m = 0;
+
+  const rm = desc.match(/corrida\s+([\d.]+)\s*km/i);
+  if (rm) run_km = toNum(rm[1]);
+
+  const bm = desc.match(/bike(?:\s+mtb)?\s+([\d.]+)\s*km/i);
+  if (bm) bike_km = toNum(bm[1]);
+
+  const sm = desc.match(/nata[çc][ãa]o\s+([\d.]+)\s*m\b/i);
+  if (sm) swim_m = toNum(sm[1]);
+
+  return { fase: wk.ph, descricao: desc, run_km, bike_km, swim_m };
+}
+
 async function toggleDone(wi, di, ev) {
   ev.stopPropagation();
   const key = `${wi}-${di}`;
@@ -446,7 +456,8 @@ async function toggleDone(wi, di, ev) {
   renderTodayHero();
   setSyncStatus('Salvando…');
   try {
-    const url = `${APPS_SCRIPT_URL}?action=toggle&key=${encodeURIComponent(key)}`;
+    const m = extractMetrics(wi, di);
+    const url = `${APPS_SCRIPT_URL}?action=toggle&key=${encodeURIComponent(key)}&fase=${m.fase}&descricao=${encodeURIComponent(m.descricao)}&run_km=${m.run_km}&bike_km=${m.bike_km}&swim_m=${m.swim_m}`;
     const res = await fetch(url);
     const data = await res.json();
     if (data.status === 'added') doneSet.add(key);
@@ -466,19 +477,14 @@ function setSyncStatus(msg) {
   if (el) el.textContent = msg;
 }
 
-/* ===== HEADER: countdown + progress bar ===== */
 function renderHeader() {
   const daysToRace = Math.ceil((RACE_DATE - TODAY_DATE) / 86400000);
   const doneCt = doneSet.size;
   const pct = Math.round(Math.min(100, (doneCt / TOTAL_DAYS) * 100));
-
-  // Countdown card
   document.getElementById('cd-num').textContent = Math.max(0, daysToRace);
   document.getElementById('cd-label').textContent = daysToRace > 0
     ? 'dias para a prova 🏁'
     : daysToRace === 0 ? 'É hoje! Vai lá, soldado! 💪' : 'Prova concluída 🏅';
-
-  // Progress bar
   document.getElementById('tpb-fill').style.width = pct + '%';
   document.getElementById('tpb-label').textContent = `${doneCt} de ${TOTAL_DAYS} dias concluídos`;
   document.getElementById('tpb-right').textContent = `${pct}% do plano ✓`;
