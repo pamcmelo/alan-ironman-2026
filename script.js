@@ -175,7 +175,7 @@ const NUT = {
   'run-short': {
     pre:   ['Banana madura + mel 1 col. · Café preto 80–150mg cafeína','200–300ml água temperatura ambiente'],
     intra: ['Apenas água quando disponível','Sem gel em sessões < 70min'],
-    post:  ['Whey 30g + fruta (banana, laranja, mamão)','Refeição em 60min: proteína magra + CHO complexo']
+    post:  ['Whey 30g + fruta (banana, laranja, mamão)','Refeição em 60min: proteína magra + CHO complexo + gordura de qualidade']
   },
   'run-long': {
     pre:   ['Aveia 80g + banana + mel + café · 400–500ml água com eletrólito','Opcional: 1 gel 15min antes do início'],
@@ -267,6 +267,7 @@ const TYPE_META = {
 };
 
 const WEEKS = [
+  /* ── SEMANAS 1–5: CONCLUÍDAS — NÃO ALTERAR ── */
   {w:1,ph:1,loc:"Cidade atual",foc:"Entrada suave. Ativar glúteo médio. Protocolo joelho todo dia.",rec:false,
    tot:{sw:"—",bk:"100km",rn:"20km",gm:"3×"},
    days:[
@@ -322,213 +323,217 @@ const WEEKS = [
     {t:"bike",   c:"Bike 70km longo"},
     {t:"run",    c:"Corrida 15km longo"}
   ]},
-  {w:6,ph:2,loc:"Bacalar",foc:"Aumentar volume de corrida. Bike com intervalos curtos.",rec:false,
-   tot:{sw:"—",bk:"130km",rn:"29km",gm:"3×"},
+
+  /* ── SEMANA 6 EM DIANTE: PLANO ATUALIZADO ──
+     Mudanças: natação a partir de hoje · descanso na quarta · bricks no sábado */
+
+  {w:6,ph:2,loc:"Bacalar",foc:"🏊 NATAÇÃO ENTRA HOJE. Descanso migra para quarta. 2 sessões de nado esta semana.",rec:false,
+   tot:{sw:"2.100m",bk:"130km",rn:"26km",gm:"2×"},
    days:[
-    {t:"run+gym",c:"Corrida 9km + Musculação"},
-    {t:"bike",   c:"Bike 55km — 3×10min forte"},
-    {t:"run+gym",c:"Corrida 11km moderado + Musculação"},
-    {t:"rest",   c:"Descanso ativo"},
-    {t:"run+gym",c:"Corrida 9km + Musculação"},
-    {t:"bike",   c:"Bike 75km longo"},
-    {t:"run",    c:"Corrida 17km longo fácil"}
+    {t:"swim+gym",c:"Natação 1.000m + Musculação (glúteo médio, core, funcional)"},
+    {t:"bike",    c:"Bike 55km — 3×10min forte"},
+    {t:"rest",    c:"Descanso ativo — rolo de espuma, alongamento 20min"},
+    {t:"swim",    c:"Natação 1.100m — posição do corpo, respiração bilateral"},
+    {t:"run+gym", c:"Corrida 9km + Musculação"},
+    {t:"bike",    c:"Bike 75km longo — ritmo aeróbico constante"},
+    {t:"run",     c:"Corrida 17km longo fácil (6:10–6:30/km)"}
   ]},
-  {w:7,ph:2,loc:"Bacalar",foc:"Maior carga da fase 2. Bike 80km. Corrida 18km.",rec:false,
-   tot:{sw:"—",bk:"135km",rn:"32km",gm:"3×"},
+  {w:7,ph:2,loc:"Bacalar",foc:"Maior carga da Fase 2. Swim sobe para 1.200m. Bike 80km. Corrida 18km.",rec:false,
+   tot:{sw:"2.400m",bk:"135km",rn:"28km",gm:"2×"},
    days:[
-    {t:"run+gym",c:"Corrida 10km + Musculação"},
-    {t:"bike",   c:"Bike 55km — intervalos de resistência"},
-    {t:"run+gym",c:"Corrida 12km + Musculação"},
-    {t:"rest",   c:"Descanso completo"},
-    {t:"run+gym",c:"Corrida 10km + Musculação"},
-    {t:"bike",   c:"Bike 80km longo — simular esforço de prova"},
-    {t:"run",    c:"Corrida 18km longo (6:10–6:30/km)"}
+    {t:"swim+gym",c:"Natação 1.200m + Musculação"},
+    {t:"bike",    c:"Bike 55km — intervalos de resistência"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim",    c:"Natação 1.200m — distância contínua sem parar"},
+    {t:"run+gym", c:"Corrida 10km + Musculação"},
+    {t:"bike",    c:"Bike 80km longo — simular esforço de prova"},
+    {t:"run",     c:"Corrida 18km longo (6:10–6:30/km)"}
   ]},
-  {w:8,ph:2,loc:"Bacalar → Playa del Carmen",foc:"Manter carga. Transição para Playa del Carmen.",rec:false,
-   tot:{sw:"—",bk:"140km",rn:"32km",gm:"3×"},
+  {w:8,ph:2,loc:"Bacalar → Playa del Carmen",foc:"Swim sobe para 1.400m. Transição para Playa del Carmen.",rec:false,
+   tot:{sw:"2.800m",bk:"140km",rn:"28km",gm:"2×"},
    days:[
-    {t:"run+gym",c:"Corrida 10km + Musculação"},
-    {t:"bike",   c:"Bike 60km"},
-    {t:"run+gym",c:"Corrida 12km + Musculação"},
-    {t:"rest",   c:"Descanso ativo"},
-    {t:"run+gym",c:"Corrida 10km + Musculação"},
-    {t:"bike",   c:"Bike 80km longo"},
-    {t:"run",    c:"Corrida 18km longo"}
-  ]},
-  {w:9,ph:2,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para entrada na natação em junho.",rec:true,
-   tot:{sw:"—",bk:"95km",rn:"23km",gm:"2×"},
-   days:[
-    {t:"run+gym",c:"Corrida 7km fácil + Musculação leve"},
-    {t:"bike",   c:"Bike 40km fácil"},
-    {t:"run+gym",c:"Corrida 9km + Musculação leve"},
-    {t:"rest",   c:"Descanso completo"},
-    {t:"run",    c:"Corrida 7km fácil"},
-    {t:"bike",   c:"Bike 55km fácil"},
-    {t:"run",    c:"Corrida 12km fácil"}
-  ]},
-  {w:10,ph:3,loc:"Playa del Carmen",foc:"🏊 NATAÇÃO COMEÇA! Foco total em técnica. Entrar na água 3× esta semana.",rec:false,
-   tot:{sw:"2.000m",bk:"140km",rn:"26km",gm:"2×"},
-   days:[
-    {t:"swim+gym",c:"Natação 600m — técnica de crawl, respiração bilateral + Musculação"},
-    {t:"run",     c:"Corrida 10km moderado"},
-    {t:"swim+gym",c:"Natação 700m — posição do corpo, sighting no mar + Musculação"},
+    {t:"swim+gym",c:"Natação 1.400m + Musculação"},
     {t:"bike",    c:"Bike 60km"},
-    {t:"swim",    c:"Natação 700m — distância contínua + orientação no mar"},
-    {t:"bike",    c:"Bike 80km longo"},
-    {t:"run",     c:"Corrida 16km longo fácil"}
-  ]},
-  {w:11,ph:3,loc:"Playa del Carmen",foc:"Chegar em 1.000m contínuos. Manter volume de bike e corrida.",rec:false,
-   tot:{sw:"2.800m",bk:"140km",rn:"29km",gm:"2×"},
-   days:[
-    {t:"swim+gym",c:"Natação 800m — posição da cabeça, braçada + Musculação"},
-    {t:"run",     c:"Corrida 11km moderado"},
-    {t:"swim+gym",c:"Natação 1.000m — nadar em linha reta, praticar sighting + Musculação"},
-    {t:"bike",    c:"Bike 60km — 3×8min forte"},
-    {t:"swim",    c:"Natação 1.000m — ritmo contínuo sem parar"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim",    c:"Natação 1.400m — nadar em linha reta, praticar sighting"},
+    {t:"run+gym", c:"Corrida 10km + Musculação"},
     {t:"bike",    c:"Bike 80km longo"},
     {t:"run",     c:"Corrida 18km longo"}
   ]},
-  {w:12,ph:3,loc:"Playa del Carmen",foc:"Chegar em 1.200m contínuos. Bike 85km. Corrida 19km.",rec:false,
-   tot:{sw:"3.400m",bk:"150km",rn:"30km",gm:"2×"},
+  {w:9,ph:2,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume reduz. Swim mantém frequência em 1.000m.",rec:true,
+   tot:{sw:"2.000m",bk:"95km",rn:"19km",gm:"1×"},
    days:[
-    {t:"swim+gym",c:"Natação 1.000m + progressão de ritmo nos últimos 300m + Musculação"},
-    {t:"run",     c:"Corrida 11km"},
-    {t:"swim+gym",c:"Natação 1.200m — ritmo constante + Musculação"},
+    {t:"swim+gym",c:"Natação 1.000m fácil + Musculação leve"},
+    {t:"bike",    c:"Bike 40km fácil"},
+    {t:"rest",    c:"Descanso completo"},
+    {t:"swim",    c:"Natação 1.000m — técnica e posição"},
+    {t:"run",     c:"Corrida 7km fácil"},
+    {t:"bike",    c:"Bike 55km fácil"},
+    {t:"run",     c:"Corrida 12km fácil"}
+  ]},
+  {w:10,ph:3,loc:"Playa del Carmen",foc:"Fase 3 inicia. Swim já em 1.600m — base de 4 semanas construída. Duas sessões de gym.",rec:false,
+   tot:{sw:"3.300m",bk:"140km",rn:"26km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.600m + Musculação — foco em ritmo e sighting"},
+    {t:"bike",    c:"Bike 60km moderado"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim+gym",c:"Natação 1.700m + Musculação — ritmo contínuo"},
+    {t:"run",     c:"Corrida 10km moderado"},
+    {t:"bike",    c:"Bike 80km longo"},
+    {t:"run",     c:"Corrida 16km longo fácil"}
+  ]},
+  {w:11,ph:3,loc:"Playa del Carmen",foc:"Swim chega em 1.900m — distância real da prova. Bike 80km. Corrida 18km.",rec:false,
+   tot:{sw:"3.700m",bk:"140km",rn:"29km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.800m + Musculação"},
+    {t:"bike",    c:"Bike 60km — 3×8min forte"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim+gym",c:"Natação 1.900m 🎯 + Musculação — distância real da prova!"},
+    {t:"run",     c:"Corrida 11km moderado"},
+    {t:"bike",    c:"Bike 80km longo"},
+    {t:"run",     c:"Corrida 18km longo"}
+  ]},
+  {w:12,ph:3,loc:"Playa del Carmen",foc:"Swim supera 2.000m pela 1ª vez. Bike 85km. Corrida 19km.",rec:false,
+   tot:{sw:"3.900m",bk:"150km",rn:"30km",gm:"2×"},
+   days:[
+    {t:"swim+gym",c:"Natação 1.900m + Musculação — progressão de ritmo nos últimos 400m"},
     {t:"bike",    c:"Bike 65km"},
-    {t:"swim",    c:"Natação 1.200m contínuos — sem parar"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim+gym",c:"Natação 2.000m + Musculação — acima da distância da prova"},
+    {t:"run",     c:"Corrida 11km"},
     {t:"bike",    c:"Bike 85km longo"},
     {t:"run",     c:"Corrida 19km longo fácil"}
   ]},
   {w:13,ph:3,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Consolidar técnica de nado.",rec:true,
-   tot:{sw:"2.400m",bk:"105km",rn:"22km",gm:"1×"},
+   tot:{sw:"2.800m",bk:"105km",rn:"22km",gm:"1×"},
    days:[
-    {t:"swim+gym",c:"Natação 800m fácil + exercícios de técnica + Musculação leve"},
-    {t:"run",     c:"Corrida 8km fácil"},
-    {t:"swim",    c:"Natação 800m — drills de braçada e posição"},
+    {t:"swim+gym",c:"Natação 1.400m fácil + Musculação leve"},
     {t:"bike",    c:"Bike 45km fácil"},
-    {t:"swim",    c:"Natação 800m contínuos"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim+gym",c:"Natação 1.400m — drills de braçada e posição"},
+    {t:"run",     c:"Corrida 8km fácil"},
     {t:"bike",    c:"Bike 60km moderado"},
     {t:"run",     c:"Corrida 14km fácil"}
   ]},
-  {w:14,ph:4,loc:"Playa del Carmen",foc:"🔥 BRICKS INICIAM! Natação 4×/semana. Brick sexta: Bike 65km + Corrida 8km.",rec:false,
-   tot:{sw:"3.800m",bk:"150km",rn:"38km",gm:"2×"},
+  {w:14,ph:4,loc:"Playa del Carmen",foc:"🔥 BRICK INICIA NO SÁBADO! Swim 3×/semana. Domingo leve após o brick.",rec:false,
+   tot:{sw:"3.800m",bk:"65km",rn:"31km",gm:"2×"},
    days:[
     {t:"swim+gym",c:"Natação 1.200m + Musculação"},
     {t:"run",     c:"Corrida 11km moderado"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim+gym",c:"Natação 1.400m contínuos + Musculação"},
     {t:"swim",    c:"Natação 1.200m — ritmo de prova"},
     {t:"brick",   c:"🔥 BRICK: Bike 65km → Corrida 8km (transição real, sem parar)"},
-    {t:"bike",    c:"Bike 85km longo"},
-    {t:"run",     c:"Corrida 19km longo"}
+    {t:"run",     c:"Corrida 12km leve — recuperação do brick"}
   ]},
-  {w:15,ph:4,loc:"Playa del Carmen",foc:"Brick maior. Natação chegando em 1.600m. Corrida 20km.",rec:false,
-   tot:{sw:"4.400m",bk:"157km",rn:"42km",gm:"2×"},
+  {w:15,ph:4,loc:"Playa del Carmen",foc:"Brick maior. Swim 1.600m. Corrida domingo 13km leve.",rec:false,
+   tot:{sw:"4.400m",bk:"70km",rn:"35km",gm:"2×"},
    days:[
     {t:"swim+gym",c:"Natação 1.400m + Musculação"},
     {t:"run",     c:"Corrida 12km moderado"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim+gym",c:"Natação 1.600m contínuos + Musculação"},
     {t:"swim",    c:"Natação 1.400m — ritmo e sighting"},
     {t:"brick",   c:"🔥 BRICK: Bike 70km → Corrida 10km"},
-    {t:"bike",    c:"Bike 87km longo"},
-    {t:"run",     c:"Corrida 20km longo"}
+    {t:"run",     c:"Corrida 13km leve — pernas pesadas são normais pós-brick"}
   ]},
-  {w:16,ph:4,loc:"Playa del Carmen",foc:"1.900m na natação pela 1ª vez! Meia maratona completa no domingo.",rec:false,
-   tot:{sw:"4.900m",bk:"163km",rn:"45km",gm:"2×"},
+  {w:16,ph:4,loc:"Playa del Carmen",foc:"1.900m swim 🎯 + Brick 75km→12km sábado. Fim de semana mais pesado da Fase 4.",rec:false,
+   tot:{sw:"4.900m",bk:"75km",rn:"40km",gm:"2×"},
    days:[
     {t:"swim+gym",c:"Natação 1.500m + Musculação"},
     {t:"run",     c:"Corrida 12km"},
-    {t:"swim+gym",c:"Natação 1.900m 🎯 — distância real da prova completa! + Musculação"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim+gym",c:"Natação 1.900m 🎯 + Musculação — distância real da prova!"},
     {t:"swim",    c:"Natação 1.500m — ritmo de prova"},
     {t:"brick",   c:"🔥 BRICK: Bike 75km → Corrida 12km"},
-    {t:"bike",    c:"Bike 88km longo"},
-    {t:"run",     c:"Corrida 21km — meia maratona completa!"}
+    {t:"run",     c:"Corrida 16km leve pós-brick — pernas pesadas são normais"}
   ]},
   {w:17,ph:4,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Volume 40% menor. Manter frequência.",rec:true,
-   tot:{sw:"3.200m",bk:"110km",rn:"22km",gm:"1×"},
+   tot:{sw:"3.200m",bk:"60km",rn:"22km",gm:"1×"},
    days:[
     {t:"swim+gym",c:"Natação 1.000m fácil + Musculação leve"},
     {t:"run",     c:"Corrida 8km fácil"},
+    {t:"rest",    c:"Descanso completo"},
     {t:"swim",    c:"Natação 1.200m fácil"},
-    {t:"bike",    c:"Bike 50km fácil"},
     {t:"swim",    c:"Natação 1.000m"},
-    {t:"bike",    c:"Bike 60km"},
+    {t:"bike",    c:"Bike 60km fácil"},
     {t:"run",     c:"Corrida 14km fácil"}
   ]},
-  {w:18,ph:5,loc:"Playa del Carmen",foc:"PICO INICIA. Natação 2.000m+. Brick longo. Musculação entra em manutenção mínima.",rec:false,
-   tot:{sw:"5.200m",bk:"170km",rn:"48km",gm:"1×"},
+  {w:18,ph:5,loc:"Playa del Carmen",foc:"PICO INICIA. Swim 2.000m+. Brick longo no sábado. Musculação entra em manutenção.",rec:false,
+   tot:{sw:"5.200m",bk:"80km",rn:"42km",gm:"1×"},
    days:[
     {t:"swim+gym",c:"Natação 1.600m + Musculação (última semana de musculação intensa)"},
     {t:"run",     c:"Corrida 13km moderado"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim",    c:"Natação 2.000m — acima da distância da prova"},
     {t:"swim",    c:"Natação 1.600m ritmo de prova"},
     {t:"brick",   c:"🔥 BRICK LONGO: Bike 80km → Corrida 14km"},
-    {t:"bike",    c:"Bike 90km longo"},
-    {t:"run",     c:"Corrida 21km fácil"}
+    {t:"run",     c:"Corrida 13km fácil — recuperação do brick longo"}
   ]},
-  {w:19,ph:5,loc:"Playa del Carmen",foc:"Pico máximo de volume. Brick 80km + 16km. Musculação suspensa.",rec:false,
-   tot:{sw:"5.400m",bk:"170km",rn:"50km",gm:"—"},
+  {w:19,ph:5,loc:"Playa del Carmen",foc:"Pico máximo de volume. Brick mais duro do ciclo no sábado. Musculação suspensa.",rec:false,
+   tot:{sw:"5.400m",bk:"80km",rn:"44km",gm:"—"},
    days:[
     {t:"swim",    c:"Natação 1.700m"},
     {t:"run",     c:"Corrida 13km moderado"},
+    {t:"rest",    c:"Descanso completo"},
     {t:"swim",    c:"Natação 2.000m — ritmo de prova"},
     {t:"swim",    c:"Natação 1.700m"},
     {t:"brick",   c:"🔥 BRICK PICO: Bike 80km → Corrida 16km"},
-    {t:"bike",    c:"Bike 90km longo"},
-    {t:"run",     c:"Corrida 21km"}
+    {t:"run",     c:"Corrida 18km longo"}
   ]},
-  {w:20,ph:5,loc:"Playa del Carmen",foc:"Simulado completo: Natação + Bike + Corrida. Sábado: descanso total.",rec:false,
-   tot:{sw:"7.200m",bk:"90km",rn:"38km",gm:"—"},
+  {w:20,ph:5,loc:"Playa del Carmen",foc:"SIMULADO COMPLETO no sábado. Domingo = descanso total obrigatório.",rec:false,
+   tot:{sw:"6.800m",bk:"90km",rn:"28km",gm:"—"},
    days:[
     {t:"swim",    c:"Natação 1.700m"},
     {t:"run",     c:"Corrida 12km moderado"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim",    c:"Natação 2.000m"},
-    {t:"swim",    c:"Natação 1.600m"},
-    {t:"brick",   c:"🔥 SIMULADO COMPLETO: Natação 1.900m → Bike 90km → Corrida 10km"},
-    {t:"rest",    c:"Descanso completo — recuperar do simulado"},
-    {t:"run",     c:"Corrida 16km fácil"}
+    {t:"swim",    c:"Natação 1.200m leve — poupar energia para o simulado"},
+    {t:"brick",   c:"🏁 SIMULADO COMPLETO: Natação 1.900m → Bike 90km → Corrida 10km"},
+    {t:"rest",    c:"Descanso completo — recuperação obrigatória após o simulado"}
   ]},
   {w:21,ph:5,loc:"Playa del Carmen",foc:"⚡ RECUPERAÇÃO — Preparar corpo para o taper final.",rec:true,
-   tot:{sw:"3.800m",bk:"110km",rn:"22km",gm:"—"},
+   tot:{sw:"3.800m",bk:"60km",rn:"22km",gm:"—"},
    days:[
     {t:"swim",    c:"Natação 1.200m fácil"},
     {t:"run",     c:"Corrida 8km fácil"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim",    c:"Natação 1.400m"},
-    {t:"bike",    c:"Bike 50km fácil"},
     {t:"swim",    c:"Natação 1.200m"},
-    {t:"bike",    c:"Bike 60km"},
+    {t:"bike",    c:"Bike 60km fácil"},
     {t:"run",     c:"Corrida 14km fácil"}
   ]},
   {w:22,ph:6,loc:"Playa del Carmen",foc:"TAPER — Volume cai 30%. Manter frequência e alguma intensidade.",rec:false,
-   tot:{sw:"4.200m",bk:"130km",rn:"26km",gm:"—"},
+   tot:{sw:"4.200m",bk:"70km",rn:"26km",gm:"—"},
    days:[
     {t:"swim",    c:"Natação 1.500m ritmo de prova"},
     {t:"run",     c:"Corrida 10km — incluir 2km em pace de prova (5:30–5:50/km)"},
+    {t:"rest",    c:"Descanso ativo"},
     {t:"swim",    c:"Natação 1.500m"},
-    {t:"bike",    c:"Bike 60km moderado"},
     {t:"swim",    c:"Natação 1.200m fácil"},
     {t:"bike",    c:"Bike 70km"},
     {t:"run",     c:"Corrida 16km fácil"}
   ]},
   {w:23,ph:6,loc:"Playa → Cozumel",foc:"Taper ativo. Chegada em Cozumel. Reconhecer percursos de nado e bike.",rec:false,
-   tot:{sw:"4.000m",bk:"105km",rn:"21km",gm:"—"},
+   tot:{sw:"4.000m",bk:"55km",rn:"21km",gm:"—"},
    days:[
     {t:"swim",    c:"Natação 1.400m fácil"},
     {t:"run",     c:"Corrida 9km fácil"},
-    {t:"swim",    c:"Natação 1.400m — testar percurso de nado"},
-    {t:"bike",    c:"Bike 50km — reconhecer parte do percurso"},
+    {t:"rest",    c:"Descanso ativo"},
+    {t:"swim",    c:"Natação 1.400m — testar percurso de nado em Cozumel"},
     {t:"swim",    c:"Natação 1.200m fácil"},
     {t:"bike",    c:"Bike 55km — percurso de bike em Cozumel"},
     {t:"run",     c:"Corrida 12km fácil — percurso de corrida"}
   ]},
-  {w:24,ph:7,loc:"Cozumel",foc:"TAPER FINAL. Treinos leves. Equipamento revisado. Testar nutrição de prova.",rec:false,
-   tot:{sw:"3.200m",bk:"40km+",rn:"15km",gm:"—"},
+  {w:24,ph:7,loc:"Cozumel",foc:"TAPER FINAL. Treinos muito leves. Testar nutrição de prova. NADA NOVO!",rec:false,
+   tot:{sw:"3.200m",bk:"40km",rn:"15km",gm:"—"},
    days:[
-    {t:"swim",    c:"Natação 1.200m muito fácil no percurso da prova"},
+    {t:"swim",    c:"Natação 1.200m muito fácil — sentir a água do percurso da prova"},
     {t:"run",     c:"Corrida 7km fácil (6:00–6:30/km)"},
+    {t:"rest",    c:"Descanso ativo — mobilidade articular"},
     {t:"swim",    c:"Natação 1.200m — familiarizar com correntes e visibilidade"},
     {t:"bike",    c:"Bike 40km no percurso — reconhecer curvas, vento e asfalto"},
-    {t:"swim",    c:"Natação 800m leve"},
-    {t:"run",     c:"Corrida 8km fácil + mini brick: 30min bike + 20min corrida"},
+    {t:"swim",    c:"Natação 800m leve + corrida 8km fácil (mini brick de ativação)"},
     {t:"rest",    c:"Descanso ativo — caminhada, visualização da prova"}
   ]},
   {w:25,ph:7,loc:"Cozumel — PROVA",foc:"SEMANA DA PROVA — Descanso máximo. Rotina, sono, nutrição. NADA NOVO!",rec:false,
@@ -536,8 +541,8 @@ const WEEKS = [
    days:[
     {t:"swim",    c:"Natação 800m muito fácil — só para sentir a água"},
     {t:"run",     c:"Corrida 20min fácil + mobilidade articular"},
-    {t:"swim",    c:"Natação 600m — manter ritmo, sem esforço"},
-    {t:"bike",    c:"Bike 25min fácil — checar equipamento e calibragem dos pneus"},
+    {t:"rest",    c:"Descanso — conservar energia para a prova"},
+    {t:"swim",    c:"Natação 600m + Bike 25min fácil — checar equipamento e calibragem dos pneus"},
     {t:"rest",    c:"Check-in atleta, registro, rack da bike. Descanso completo."},
     {t:"rest",    c:"Briefing obrigatório, rack da bike, visualização da prova. Dormir cedo (20h)."},
     {t:"brick",   c:"🏁 IRONMAN 70.3 COZUMEL — DIA DA PROVA! Boa sorte, soldado! 💪"}
